@@ -4,17 +4,32 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Experimento {
     private Date fechaInicio;
     private Date fechaFin;
     private List<Bacteria> bacterias;
+    private double dosisComidaInicial;
+    private double dosisComidaFinal;
 
-    public Experimento(Date fechaInicio, Date fechaFin, List<Bacteria> bacterias) {
+    public Experimento(Date fechaInicio, Date fechaFin, List<Bacteria> bacterias, double dosisComidaInicial, double dosisComidaFinal) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.bacterias = bacterias;
+        this.dosisComidaInicial = dosisComidaInicial;
+        this.dosisComidaFinal = dosisComidaFinal;
     }
+
+    public double calcularDosisDiaria(int dia) {
+        long diffInMillies = Math.abs(fechaFin.getTime() - fechaInicio.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        double incrementoDiario = (dosisComidaFinal - dosisComidaInicial) / diff;
+
+        return dosisComidaInicial + incrementoDiario * dia;
+    }
+
 
     // getters y setters
     public Date getFechaInicio() {
