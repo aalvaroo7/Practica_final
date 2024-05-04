@@ -19,5 +19,4 @@ public class Utilidades {
         }
     }
 
-    // Añade aquí más métodos útiles...
 }
