@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 public class Experimento {
     private Date fechaInicio;
     private Date fechaFin;
@@ -87,6 +86,18 @@ public class Experimento {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void mostrarInfoExperimento() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("Fecha de inicio: " + sdf.format(fechaInicio));
+        System.out.println("Fecha de fin: " + sdf.format(fechaFin));
+        System.out.println("Dosis de comida inicial: " + dosisComidaInicial);
+        System.out.println("Dosis de comida final: " + dosisComidaFinal);
+        System.out.println("Bacterias:");
+        for (Bacteria bacteria : bacterias) {
+            bacteria.mostrarInfo();
         }
     }
 }

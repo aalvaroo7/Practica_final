@@ -25,4 +25,8 @@ public class Bacteria {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    public void mostrarInfo() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Cantidad: " + cantidad);
+    }
 }

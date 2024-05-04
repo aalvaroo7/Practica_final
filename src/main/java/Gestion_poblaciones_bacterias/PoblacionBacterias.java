@@ -68,4 +68,15 @@ public class PoblacionBacterias {
             e.printStackTrace();
         }
     }
+    public void mostrarInfoPoblacion() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Fecha de inicio: " + sdf.format(fechaInicio));
+        System.out.println("Fecha de fin: " + sdf.format(fechaFin));
+        System.out.println("Número de bacterias iniciales: " + numBacteriasIniciales);
+        System.out.println("Temperatura: " + temperatura);
+        System.out.println("Condiciones de luminosidad: " + condicionesLuminosidad);
+        System.out.println("Dosis de comida: " + dosisComida);
+    }
+
 }
