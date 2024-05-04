@@ -80,7 +80,10 @@ public class Experimento {
                 String[] partes = linea.split(",");
                 bacterias.add(new Bacteria(partes[0], Integer.parseInt(partes[1])));
             }
-            return new Experimento(fechaInicio, fechaFin, bacterias);
+            // Provide default values for dosisComidaInicial and dosisComidaFinal
+            double dosisComidaInicial = 1.0;
+            double dosisComidaFinal = 2.0;
+            return new Experimento(fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
