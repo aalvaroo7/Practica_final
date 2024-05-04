@@ -26,7 +26,7 @@ El proyecto se organiza en los siguientes paquetes y clases:
 - Borrar una población de bacterias del experimento actual.
 - Ver información detallada de una población de bacterias del experimento actual.
 - Guardar y cargar experimentos en archivos de texto.
-
+- 
 ## Cómo ejecutar
 
 El proyecto se puede ejecutar a través de un archivo JAR, lo que permite ejecutar la aplicación de escritorio en cualquier sistema operativo que tenga instalado Java. Para ejecutar el archivo JAR, se debe abrir una terminal y ejecutar el siguiente comando:
