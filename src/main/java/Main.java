@@ -1,3 +1,4 @@
+import GUI.InterfazUsuario;
 import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Bacteria;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
@@ -29,5 +30,9 @@ public class Main {
         Date fechaFinPob = new Date(); // fecha actual
         PoblacionBacterias poblacion = new PoblacionBacterias("Poblacion1", fechaInicioPob, fechaFinPob, 1000, 37.0, "Luz natural", 1.5);
         poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
+
+        // Crear la interfaz de usuario y hacerla visible
+        InterfazUsuario interfazUsuario = new InterfazUsuario();
+        interfazUsuario.setVisible(true);
     }
 }
