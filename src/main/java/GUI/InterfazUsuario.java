@@ -1,11 +1,17 @@
 package GUI;
 
 import Gestion_experimentos.Experimento;
+import Gestion_poblaciones_bacterias.PoblacionBacterias;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 
 public class InterfazUsuario extends JFrame {
     private JButton abrirArchivoButton;
@@ -35,9 +41,20 @@ public class InterfazUsuario extends JFrame {
         abrirArchivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para abrir archivo
-                Experimento experimentoCargado = Experimento.abrirExperimento("ruta/al/archivo_experimento.txt");
-                // Ahora puedes usar experimentoCargado para mostrar la información del experimento o hacer otras operaciones
+                // Crear un JFileChooser
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+
+                // Si el usuario selecciona un archivo
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    // Obtener la ruta al archivo seleccionado
+                    String rutaArchivo = fileChooser.getSelectedFile().getPath();
+
+                    // Abrir el experimento
+                    Experimento experimentoCargado = Experimento.abrirExperimento(rutaArchivo);
+
+                    // Ahora puedes usar experimentoCargado para mostrar la información del experimento o hacer otras operaciones
+                }
             }
         });
 
@@ -45,13 +62,39 @@ public class InterfazUsuario extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implementar lógica para crear experimento
+                Date fechaInicioPob = new Date(); // fecha actual
+                Date fechaFinPob = new Date(); // fecha actual
+                String nombre = "Poblacion1"; // nombre de la población
+                int numBacteriasIniciales = 1000; // número inicial de bacterias
+                double temperatura = 37.0; // temperatura en grados Celsius
+                String condicionesLuminosidad = "Luz natural"; // condiciones de luminosidad
+                double dosisComida = 1.5; // dosis de comida
+
+                PoblacionBacterias poblacion = new PoblacionBacterias(nombre, fechaInicioPob, fechaFinPob, numBacteriasIniciales, temperatura, condicionesLuminosidad, dosisComida);
+                poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
             }
         });
 
         crearPoblacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para crear población
+                // Pedir al usuario los detalles de la población
+                String nombre = JOptionPane.showInputDialog("Introduce el nombre de la población");
+                String strTemperatura = JOptionPane.showInputDialog("Introduce la temperatura de la población");
+                double temperatura = Double.parseDouble(strTemperatura);
+                String condicionesLuminosidad = JOptionPane.showInputDialog("Introduce las condiciones de luminosidad de la población");
+                String strDosisComida = JOptionPane.showInputDialog("Introduce la dosis de comida de la población");
+                double dosisComida = Double.parseDouble(strDosisComida);
+
+                // Crear la población
+                Date fechaInicioPob = new Date(); // fecha actual
+                Date fechaFinPob = new Date(); // fecha actual
+                int numBacteriasIniciales = 1000; // número inicial de bacterias
+
+                PoblacionBacterias poblacion = new PoblacionBacterias(nombre, fechaInicioPob, fechaFinPob, numBacteriasIniciales, temperatura, condicionesLuminosidad, dosisComida);
+
+                // Guardar la población
+                poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
             }
         });
 
@@ -59,34 +102,84 @@ public class InterfazUsuario extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implementar lógica para visualizar poblaciones
+                PoblacionBacterias.visualizarPoblaciones("ruta/al/archivo_poblacion.txt");
             }
         });
 
         borrarPoblacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para borrar población
+                // Pedir al usuario el nombre de la población a borrar
+                String nombrePoblacion = JOptionPane.showInputDialog("Introduce el nombre de la población a borrar");
+
+                // Borrar la población
+                PoblacionBacterias.eliminarPoblacion("ruta/al/archivo_poblacion.txt", nombrePoblacion);
             }
         });
 
         verInfoPoblacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para ver info de población
+                // Pedir al usuario el nombre de la población a visualizar
+                String nombrePoblacion = JOptionPane.showInputDialog("Introduce el nombre de la población a visualizar");
+
+                // Buscar la población en el archivo y mostrar su información
+                try (BufferedReader in = new BufferedReader(new FileReader("ruta/al/archivo_poblacion.txt"))) {
+                    String linea;
+                    while ((linea = in.readLine()) != null) {
+                        String[] partes = linea.split(",");
+                        if (partes[0].equals(nombrePoblacion)) {
+                            PoblacionBacterias poblacion = new PoblacionBacterias(partes[0], new SimpleDateFormat("yyyy-MM-dd").parse(partes[1]), new SimpleDateFormat("yyyy-MM-dd").parse(partes[2]), Integer.parseInt(partes[3]), Double.parseDouble(partes[4]), partes[5], Double.parseDouble(partes[6]));
+                            poblacion.mostrarInfoPoblacion();
+                            break;
+                        }
+                    }
+                } catch (IOException | ParseException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
-        guardarButton.addActionListener(new ActionListener() {
+        verInfoPoblacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para guardar
+                // Pedir al usuario el nombre de la población a visualizar
+                String nombrePoblacion = JOptionPane.showInputDialog("Introduce el nombre de la población a visualizar");
+
+                // Buscar la población en el archivo y mostrar su información
+                try (BufferedReader in = new BufferedReader(new FileReader("ruta/al/archivo_poblacion.txt"))) {
+                    String linea;
+                    while ((linea = in.readLine()) != null) {
+                        String[] partes = linea.split(",");
+                        if (partes[0].equals(nombrePoblacion)) {
+                            PoblacionBacterias poblacion = new PoblacionBacterias(partes[0], new SimpleDateFormat("yyyy-MM-dd").parse(partes[1]), new SimpleDateFormat("yyyy-MM-dd").parse(partes[2]), Integer.parseInt(partes[3]), Double.parseDouble(partes[4]), partes[5], Double.parseDouble(partes[6]));
+                            poblacion.mostrarInfoPoblacion();
+                            break;
+                        }
+                    }
+                } catch (IOException | ParseException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
         guardarComoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para guardar como
+                // Crear un JFileChooser
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showSaveDialog(null);
+
+                // Si el usuario selecciona un archivo
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    // Obtener la ruta al archivo seleccionado
+                    String rutaArchivo = fileChooser.getSelectedFile().getPath();
+
+                    // Guardar el experimento
+                    // Aquí necesitarás tener una referencia al experimento que quieres guardar.
+                    // Por ejemplo, si tienes un atributo de clase Experimento llamado experimentoActual, podrías hacer:
+                    experimentoActual.guardarExperimento(rutaArchivo);
+                }
             }
         });
 
