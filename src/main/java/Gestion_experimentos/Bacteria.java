@@ -1,4 +1,4 @@
-package Clases_bac_ex;
+package Gestion_experimentos;
 
 public class Bacteria {
     private String nombre;

@@ -1,4 +1,4 @@
-package Clases_bac_ex;
+package Gestion_experimentos;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
