@@ -2,7 +2,7 @@ package GUI;
 
 import Gestion_experimentos.Experimento;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
-
+import java.text.SimpleDateFormat;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +22,8 @@ public class InterfazUsuario extends JFrame {
     private JButton verInfoPoblacionButton;
     private JButton guardarButton;
     private JButton guardarComoButton;
+    private Experimento experimentoActual;
+    private String rutaArchivo; // Añade esta línea
 
     public InterfazUsuario() {
         setTitle("Interfaz de Usuario");
@@ -48,7 +50,7 @@ public class InterfazUsuario extends JFrame {
                 // Si el usuario selecciona un archivo
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     // Obtener la ruta al archivo seleccionado
-                    String rutaArchivo = fileChooser.getSelectedFile().getPath();
+                    rutaArchivo = fileChooser.getSelectedFile().getPath(); // Modifica esta línea
 
                     // Abrir el experimento
                     Experimento experimentoCargado = Experimento.abrirExperimento(rutaArchivo);
@@ -173,11 +175,9 @@ public class InterfazUsuario extends JFrame {
                 // Si el usuario selecciona un archivo
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     // Obtener la ruta al archivo seleccionado
-                    String rutaArchivo = fileChooser.getSelectedFile().getPath();
+                    rutaArchivo = fileChooser.getSelectedFile().getPath(); // Modifica esta línea
 
                     // Guardar el experimento
-                    // Aquí necesitarás tener una referencia al experimento que quieres guardar.
-                    // Por ejemplo, si tienes un atributo de clase Experimento llamado experimentoActual, podrías hacer:
                     experimentoActual.guardarExperimento(rutaArchivo);
                 }
             }
