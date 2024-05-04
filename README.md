@@ -23,3 +23,5 @@ Visualizar los nombres de todas las poblaciones de bacterias del experimento act
 Borrar una población de bacterias del experimento actual
 Ver información detallada de una población de bacterias del experimento actual
 Guardar y cargar experimentos en archivos de texto
+
+Archivo Jar, este nos permite ejecutar la aplicación de escritorio en cualquier sistema operativo que tenga instalado Java. Para ejecutar el archivo Jar, se debe abrir una terminal y ejecutar el siguiente comando:
