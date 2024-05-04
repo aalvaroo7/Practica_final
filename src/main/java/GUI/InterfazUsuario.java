@@ -1,5 +1,7 @@
 package GUI;
 
+import Gestion_experimentos.Experimento;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,6 +36,8 @@ public class InterfazUsuario extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implementar lógica para abrir archivo
+                Experimento experimentoCargado = Experimento.abrirExperimento("ruta/al/archivo_experimento.txt");
+                // Ahora puedes usar experimentoCargado para mostrar la información del experimento o hacer otras operaciones
             }
         });
 

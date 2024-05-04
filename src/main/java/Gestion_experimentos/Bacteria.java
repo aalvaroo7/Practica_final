@@ -29,4 +29,5 @@ public class Bacteria {
         System.out.println("Nombre: " + nombre);
         System.out.println("Cantidad: " + cantidad);
     }
+
 }

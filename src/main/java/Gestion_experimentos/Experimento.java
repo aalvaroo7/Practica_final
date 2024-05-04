@@ -100,5 +100,14 @@ public class Experimento {
             bacteria.mostrarInfo();
         }
     }
+
+    public void visualizarNombresBacterias() {
+        for (Bacteria bacteria : bacterias) {
+            System.out.println(bacteria.getNombre());
+        }
+    }
+    public void borrarBacteria(String nombreBacteria) {
+        bacterias.removeIf(bacteria -> bacteria.getNombre().equals(nombreBacteria));
+    }
 }
 
