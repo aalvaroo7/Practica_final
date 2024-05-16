@@ -24,6 +24,7 @@ public class InterfazUsuario extends JFrame {
     private JButton guardarComoButton;
     private Experimento experimentoActual;
     private String rutaArchivo; // Añade esta línea
+    private JButton sortBacteriaButton;
 
     public InterfazUsuario() {
         setTitle("Interfaz de Usuario");
@@ -40,6 +41,18 @@ public class InterfazUsuario extends JFrame {
         guardarButton = new JButton("Guardar");
         guardarComoButton = new JButton("Guardar Como");
 
+        sortBacteriaButton = new JButton("Sort Bacteria");
+
+        sortBacteriaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (experimentoActual != null) {
+                    experimentoActual.sortBacteria();
+                }
+            }
+        });
+
+        add(sortBacteriaButton);
         abrirArchivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
