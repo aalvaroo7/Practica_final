@@ -16,10 +16,27 @@ public class Main {
         Date fechaFinExp = new Date(); // fecha actual
         List<Bacteria> bacterias = new ArrayList<>();
         bacterias.add(new Bacteria("E. coli", 1000));
+        bacterias.add(new Bacteria("Salmonella", 500)); // Added for testing
+        bacterias.add(new Bacteria("Staphylococcus", 1500)); // Added for testing
         int duracion = 30; // duration of the experiment in days
         double dosisComidaMicrogramos = 1500.0; // food dose in micrograms
         Experimento experimento = new Experimento(fechaInicioExp, fechaFinExp, bacterias, 1.0, 2.0, duracion, dosisComidaMicrogramos);
         experimento.guardarExperimento("ruta/al/archivo_experimento.txt");
+
+        // Print the list of bacteria before sorting
+        System.out.println("Before sorting:");
+        for (Bacteria bacteria : experimento.getBacterias()) {
+            System.out.println(bacteria.getNombre() + ": " + bacteria.getCantidad());
+        }
+
+        // Sort the bacteria
+        experimento.sortBacteria();
+
+        // Print the list of bacteria after sorting
+        System.out.println("After sorting:");
+        for (Bacteria bacteria : experimento.getBacterias()) {
+            System.out.println(bacteria.getNombre() + ": " + bacteria.getCantidad());
+        }
 
         // Calcular la dosis diaria de comida para cada día del experimento
         for (int dia = 0; dia < 30; dia++) {
