@@ -24,11 +24,24 @@ public class Experimento {
         this.dosisComidaMicrogramos = dosisComidaMicrogramos; // initialize new instance variable
     }
 
-    public double calcularDosisDiaria(int dia) {
-        double incrementoDiario = (dosisComidaMicrogramos - dosisComidaInicial) / duracion; // calculate daily increment based on duration and total food dose in micrograms
-
-        return dosisComidaInicial + incrementoDiario * dia;
+    public double calcularDosisDiaria(int dia, FoodSupplyPattern pattern) {
+        switch (pattern) {
+            case CONSTANT:
+                return dosisComidaMicrogramos;
+            case LINEAR_INCREASE:
+                double incrementoDiario = (dosisComidaMicrogramos - dosisComidaInicial) / duracion;
+                return dosisComidaInicial + incrementoDiario * dia;
+            case ALTERNATING:
+                if (dia % 2 == 0) {
+                    return dosisComidaMicrogramos;
+                } else {
+                    return 0;
+                }
+            default:
+                throw new IllegalArgumentException("Invalid food supply pattern: " + pattern);
+        }
     }
+
 
     // getters y setters
     public Date getFechaInicio() {
@@ -109,6 +122,12 @@ public class Experimento {
     }
     public void borrarBacteria(String nombreBacteria) {
         bacterias.removeIf(bacteria -> bacteria.getNombre().equals(nombreBacteria));
+    }
+
+    public enum FoodSupplyPattern {
+        CONSTANT,
+        LINEAR_INCREASE,
+        ALTERNATING
     }
 
 }
