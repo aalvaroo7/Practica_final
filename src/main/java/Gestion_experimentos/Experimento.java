@@ -1,9 +1,7 @@
 package Gestion_experimentos;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 public class Experimento {
     private Date fechaInicio;
@@ -80,6 +78,7 @@ public class Experimento {
             e.printStackTrace();
         }
     }
+
     public static Experimento abrirExperimento(String rutaArchivo) {
         try (BufferedReader in = new BufferedReader(new FileReader(rutaArchivo))) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -120,6 +119,7 @@ public class Experimento {
             System.out.println(bacteria.getNombre());
         }
     }
+
     public void borrarBacteria(String nombreBacteria) {
         bacterias.removeIf(bacteria -> bacteria.getNombre().equals(nombreBacteria));
     }
@@ -129,6 +129,7 @@ public class Experimento {
         LINEAR_INCREASE,
         ALTERNATING
     }
+
     public int[][] simulateExperiment() {
         int size = 20;
         int[][] petriDish = new int[size][size];
@@ -154,6 +155,16 @@ public class Experimento {
         }
 
         return petriDish;
+    }
+
+    public void sortBacteria() {
+        Collections.sort(this.bacterias, new Comparator<Bacteria>() {
+            @Override
+            public int compare(Bacteria b1, Bacteria b2) {
+                return Integer.compare(b1.getCantidad(), b2.getCantidad());
+            }
+        });
+
     }
 }
 
