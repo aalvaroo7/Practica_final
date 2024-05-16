@@ -129,6 +129,31 @@ public class Experimento {
         LINEAR_INCREASE,
         ALTERNATING
     }
+    public int[][] simulateExperiment() {
+        int size = 20;
+        int[][] petriDish = new int[size][size];
 
+        // Place the bacteria in the center of the petri dish
+        int initialBacteria = getBacterias().get(0).getCantidad(); // Assuming there's only one type of bacteria
+        petriDish[size / 2][size / 2] = initialBacteria;
+
+        // Simulate each day of the experiment
+        for (int day = 0; day < duracion; day++) {
+            // Create a copy of the petri dish to store the state for the next day
+            int[][] nextDayPetriDish = new int[size][size];
+
+            // Simulate the growth and movement of the bacteria
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    // TODO: Update nextDayPetriDish[i][j] based on the rules of the experiment
+                }
+            }
+
+            // Update the petri dish to the state of the next day
+            petriDish = nextDayPetriDish;
+        }
+
+        return petriDish;
+    }
 }
 
