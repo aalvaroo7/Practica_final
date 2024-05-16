@@ -16,7 +16,9 @@ public class Main {
         Date fechaFinExp = new Date(); // fecha actual
         List<Bacteria> bacterias = new ArrayList<>();
         bacterias.add(new Bacteria("E. coli", 1000));
-        Experimento experimento = new Experimento(fechaInicioExp, fechaFinExp, bacterias, 1.0, 2.0);
+        int duracion = 30; // duration of the experiment in days
+        double dosisComidaMicrogramos = 1500.0; // food dose in micrograms
+        Experimento experimento = new Experimento(fechaInicioExp, fechaFinExp, bacterias, 1.0, 2.0, duracion, dosisComidaMicrogramos);
         experimento.guardarExperimento("ruta/al/archivo_experimento.txt");
 
         // Calcular la dosis diaria de comida para cada día del experimento

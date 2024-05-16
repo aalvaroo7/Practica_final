@@ -11,24 +11,24 @@ public class Experimento {
     private List<Bacteria> bacterias;
     private double dosisComidaInicial;
     private double dosisComidaFinal;
+    private int duracion; // new instance variable
+    private double dosisComidaMicrogramos; // new instance variable
 
-    public Experimento(Date fechaInicio, Date fechaFin, List<Bacteria> bacterias, double dosisComidaInicial, double dosisComidaFinal) {
+    public Experimento(Date fechaInicio, Date fechaFin, List<Bacteria> bacterias, double dosisComidaInicial, double dosisComidaFinal, int duracion, double dosisComidaMicrogramos) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.bacterias = bacterias;
         this.dosisComidaInicial = dosisComidaInicial;
         this.dosisComidaFinal = dosisComidaFinal;
+        this.duracion = duracion; // initialize new instance variable
+        this.dosisComidaMicrogramos = dosisComidaMicrogramos; // initialize new instance variable
     }
 
     public double calcularDosisDiaria(int dia) {
-        long diffInMillies = Math.abs(fechaFin.getTime() - fechaInicio.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
-        double incrementoDiario = (dosisComidaFinal - dosisComidaInicial) / diff;
+        double incrementoDiario = (dosisComidaMicrogramos - dosisComidaInicial) / duracion; // calculate daily increment based on duration and total food dose in micrograms
 
         return dosisComidaInicial + incrementoDiario * dia;
     }
-
 
     // getters y setters
     public Date getFechaInicio() {
@@ -67,7 +67,6 @@ public class Experimento {
             e.printStackTrace();
         }
     }
-
     public static Experimento abrirExperimento(String rutaArchivo) {
         try (BufferedReader in = new BufferedReader(new FileReader(rutaArchivo))) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -79,10 +78,12 @@ public class Experimento {
                 String[] partes = linea.split(",");
                 bacterias.add(new Bacteria(partes[0], Integer.parseInt(partes[1])));
             }
-            // Provide default values for dosisComidaInicial and dosisComidaFinal
+            // Provide default values for dosisComidaInicial, dosisComidaFinal, duracion and dosisComidaMicrogramos
             double dosisComidaInicial = 1.0;
             double dosisComidaFinal = 2.0;
-            return new Experimento(fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal);
+            int duracion = 30; // default duration of the experiment in days
+            double dosisComidaMicrogramos = 1500.0; // default food dose in micrograms
+            return new Experimento(fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal, duracion, dosisComidaMicrogramos);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -109,5 +110,6 @@ public class Experimento {
     public void borrarBacteria(String nombreBacteria) {
         bacterias.removeIf(bacteria -> bacteria.getNombre().equals(nombreBacteria));
     }
+
 }
 
