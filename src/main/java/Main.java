@@ -23,7 +23,7 @@ public class Main {
 
         // Calcular la dosis diaria de comida para cada día del experimento
         for (int dia = 0; dia < 30; dia++) {
-            double dosisDiaria = experimento.calcularDosisDiaria(dia);
+            double dosisDiaria = experimento.calcularDosisDiaria(dia, Experimento.FoodSupplyPattern.CONSTANT); // Added FoodSupplyPattern.CONSTANT as the second parameter
             System.out.println("Dosis de comida para el día " + dia + ": " + dosisDiaria);
         }
 
