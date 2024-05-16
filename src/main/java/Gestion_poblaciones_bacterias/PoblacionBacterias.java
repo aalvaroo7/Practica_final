@@ -2,7 +2,10 @@ package Gestion_poblaciones_bacterias;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class PoblacionBacterias {
     private String nombre;
@@ -23,9 +26,61 @@ public class PoblacionBacterias {
         this.dosisComida = dosisComida;
     }
 
-    // getters y setters
-    // ...
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public int getNumBacteriasIniciales() {
+        return numBacteriasIniciales;
+    }
+
+    public void setNumBacteriasIniciales(int numBacteriasIniciales) {
+        this.numBacteriasIniciales = numBacteriasIniciales;
+    }
+
+    public double getTemperatura() {
+        return temperatura;
+    }
+
+    public void setTemperatura(double temperatura) {
+        this.temperatura = temperatura;
+    }
+
+    public String getCondicionesLuminosidad() {
+        return condicionesLuminosidad;
+    }
+
+    public void setCondicionesLuminosidad(String condicionesLuminosidad) {
+        this.condicionesLuminosidad = condicionesLuminosidad;
+    }
+
+    public double getDosisComida() {
+        return dosisComida;
+    }
+
+    public void setDosisComida(double dosisComida) {
+        this.dosisComida = dosisComida;
+    }
     public void guardarPoblacion(String rutaArchivo) {
         try (PrintWriter out = new PrintWriter(new FileWriter(rutaArchivo, true))) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -79,4 +134,30 @@ public class PoblacionBacterias {
         System.out.println("Dosis de comida: " + dosisComida);
     }
 
+    public static void sortByStartDate(List<PoblacionBacterias> poblaciones) {
+        Collections.sort(poblaciones, new Comparator<PoblacionBacterias>() {
+            @Override
+            public int compare(PoblacionBacterias p1, PoblacionBacterias p2) {
+                return p1.getFechaInicio().compareTo(p2.getFechaInicio());
+            }
+        });
+    }
+
+    public static void sortByName(List<PoblacionBacterias> poblaciones) {
+        Collections.sort(poblaciones, new Comparator<PoblacionBacterias>() {
+            @Override
+            public int compare(PoblacionBacterias p1, PoblacionBacterias p2) {
+                return p1.getNombre().compareTo(p2.getNombre());
+            }
+        });
+    }
+
+    public static void sortByNumBacterias(List<PoblacionBacterias> poblaciones) {
+        Collections.sort(poblaciones, new Comparator<PoblacionBacterias>() {
+            @Override
+            public int compare(PoblacionBacterias p1, PoblacionBacterias p2) {
+                return Integer.compare(p1.getNumBacteriasIniciales(), p2.getNumBacteriasIniciales());
+            }
+        });
+    }
 }
