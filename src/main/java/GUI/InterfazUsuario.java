@@ -99,8 +99,13 @@ public class InterfazUsuario extends JFrame {
                 double temperatura = Double.parseDouble(strTemperatura);
                 String condicionesLuminosidad = JOptionPane.showInputDialog("Introduce las condiciones de luminosidad del experimento");
                 String strDosisComida = JOptionPane.showInputDialog("Introduce la dosis de comida del experimento");
-                double dosisComida = Double.parseDouble(strDosisComida);
-
+                double dosisComida = 0;
+                try {
+                    dosisComida = Double.parseDouble(strDosisComida);
+                    // Existing code...
+                } catch (NumberFormatException ex) {
+                    System.out.println("Error: La dosis de comida debe ser un número.");
+                }
                 // Crear el experimento
                 Date fechaInicioExp = new Date(); // fecha actual
                 Date fechaFinExp = new Date(); // fecha actual
