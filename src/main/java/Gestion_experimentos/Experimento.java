@@ -3,6 +3,7 @@ package Gestion_experimentos;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -46,11 +47,6 @@ public class Experimento implements Serializable {
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-
-    public Duration getDuracion() {
-        return duracion;
-    }
-
     public void setDuracion(int duracion) {
         this.duracion = Duration.ofDays(duracion);
     }
@@ -97,16 +93,6 @@ public class Experimento implements Serializable {
     public void simularExperimento() {
         // Implementation of the Monte Carlo simulation...
     }
-
-    // New methods for file I/O
-    public static Experimento cargarExperimento(String filePath) {
-        // Implementation of loading an experiment from a file...
-    }
-
-    public void guardarExperimento(String filePath) {
-        // Implementation of saving the experiment to a file...
-    }
-
     public static Experimento cargarExperimento(String filePath) {
         Experimento e = null;
         try {

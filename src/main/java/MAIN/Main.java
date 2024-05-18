@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Gestion_experimentos.*;
 import SimulacionMontecarlo.Simulacion;
@@ -49,7 +49,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create a new experiment
-                experimento = new Experimento("Experimento 1", new Date(), 10, 10, new ArrayList<>());
+                experimento = new Experimento("Experimento 1", new Date(), 10, 10, new ArrayList<Bacteria>());
             }
         });
         add(crearExperimentoButton);
