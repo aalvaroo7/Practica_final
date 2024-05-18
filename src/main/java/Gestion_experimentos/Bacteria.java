@@ -14,7 +14,17 @@ public class Bacteria {
     private int[][] foodGrid;
     private Bacteria[][] bacteriaGrid;
     private static int totalBacteria;
-
+    public void simulateDailyBehavior() {
+        if (!isNewborn) {
+            for (int i = 0; i < 10; i++) {
+                eat();
+                move();
+            }
+            reproduce();
+            die();
+        }
+        isNewborn = false; // After the first day, the bacteria is no longer a newborn
+    }
     public Bacteria(int x, int y, int maxX, int maxY, int[][] foodGrid, Bacteria[][] bacteriaGrid) {
         this.x = x;
         this.y = y;
