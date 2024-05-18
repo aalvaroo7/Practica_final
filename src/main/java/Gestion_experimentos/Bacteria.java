@@ -45,6 +45,13 @@ public class Bacteria {
         totalBacteria++;
     }
 
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
     public void simulateDailyBehavior() {
         if (!isNewborn) {
             for (int i = 0; i < 10; i++) {

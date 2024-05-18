@@ -9,19 +9,26 @@ public class PlatoCultivo {
     private int[][][] bacteriaStats;
     private int[][][] foodStats;
     private int currentDay;
-    private int duracion; // Added this line
+    private int duracion;
 
-
-    public PlatoCultivo(int ancho, int alto) { // Modified this line
+    public PlatoCultivo(int ancho, int alto) {
         this.ancho = ancho;
         this.alto = alto;
-        this.duracion = duracion; // Added this line
+        this.duracion = 0; // Initialize duration to 0
         this.matrizCeldas = new Celda[ancho][alto];
         this.bacteriaStats = new int[duracion][ancho][alto];
         this.foodStats = new int[duracion][ancho][alto];
         this.currentDay = 0;
         inicializarPlato();
     }
+
+    public void addBacteria(Bacteria bacteria) {
+        // Assuming that the bacteria knows its own position
+        int x = bacteria.getX();
+        int y = bacteria.getY();
+        this.matrizCeldas[x][y].addBacteria(bacteria);
+    }
+
     private void inicializarPlato() {
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
@@ -58,6 +65,7 @@ public class PlatoCultivo {
                 }
             }
             currentDay++;
+            actualizarDuracion(); // Update the duration of the experiment
         }
     }
     public boolean hayBacteriasVivas() {
@@ -113,6 +121,14 @@ public class PlatoCultivo {
                     bacteria.simulateDailyBehavior();
                 }
             }
+        }
+    }
+    public void actualizarDuracion() {
+        if (hayBacteriasVivas()) {
+            this.duracion++;
+            // Resize the bacteriaStats and foodStats arrays
+            this.bacteriaStats = new int[duracion][ancho][alto];
+            this.foodStats = new int[duracion][ancho][alto];
         }
     }
 }
