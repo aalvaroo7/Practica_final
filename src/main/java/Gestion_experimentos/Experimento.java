@@ -21,6 +21,45 @@ public class Experimento {
         this.poblacionesBacterias = poblacionesBacterias;
         this.platoCultivo = new PlatoCultivo(100, 100); // Assuming a 100x100 petri dish
     }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public int getPatronAlimentacion() {
+        return patronAlimentacion;
+    }
+
+    public void setPatronAlimentacion(int patronAlimentacion) {
+        this.patronAlimentacion = patronAlimentacion;
+    }
+
+    public List<Bacteria> getPoblacionesBacterias() {
+        return poblacionesBacterias;
+    }
+
+    public void setPoblacionesBacterias(List<Bacteria> poblacionesBacterias) {
+        this.poblacionesBacterias = poblacionesBacterias;
+    }
 
     public void iniciarExperimento() {
         // Initialize the petri dish with bacteria
