@@ -46,8 +46,6 @@ public class Simulacion {
         int ancho = platoCultivo.getAncho();
         int alto = platoCultivo.getAlto();
 
-        int x = rand.nextInt(ancho);
-        int y = rand.nextInt(alto);
         int maxX = rand.nextInt(ancho);
         int maxY = rand.nextInt(alto);
 
