@@ -57,12 +57,12 @@ public class Main {
         Date fechaFinPob = new Date(); // fecha actual
         PoblacionBacterias poblacion = new PoblacionBacterias("Poblacion1", fechaInicioPob, fechaFinPob, 1000, 37.0, "Luz natural", 1.5);
         poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
-        // Crear los directorios para los archivos si no existen
-        new File(new File("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\archivo_experimento.txt").getParent()).mkdirs();
-        new File(new File("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\archivo_poblacion.txt").getParent()).mkdirs();
+// Crear los directorios para los archivos si no existen
+        new File(new File("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\src\\main\\java\\archivos_a_guardar\\archivo_experimento.txt").getParent()).mkdirs();
+        new File(new File("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\src\\main\\java\\archivos_a_guardar\\archivo_poblacion.txt").getParent()).mkdirs();
 
 // Ahora puedes guardar el experimento y la población
-        experimento.guardarExperimento("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\archivo_experimento.txt");
-        poblacion.guardarPoblacion("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\archivo_poblacion.txt");
+        experimento.guardarExperimento("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\src\\main\\java\\archivos_a_guardar\\archivo_experimento.txt");
+        poblacion.guardarPoblacion("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final\\src\\main\\java\\archivos_a_guardar\\archivo_poblacion.txt");
     }
 }

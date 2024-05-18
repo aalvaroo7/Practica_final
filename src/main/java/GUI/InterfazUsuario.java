@@ -2,6 +2,8 @@ package GUI;
 
 import Gestion_experimentos.Experimento;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
+
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +34,11 @@ public class InterfazUsuario extends JFrame {
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
-
+        // Crear un CustomOutputStream y redirigir la salida estándar a él
+        CustomOutputStream customOut = new CustomOutputStream(textArea);
+        PrintStream printStream = new PrintStream(customOut);
+        System.setOut(printStream);
+        System.setErr(printStream);
         abrirArchivoButton = new JButton("Abrir Archivo");
         crearExperimentoButton = new JButton("Crear Experimento");
         crearPoblacionButton = new JButton("Crear Población");

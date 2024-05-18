@@ -1,0 +1,5 @@
+2024-05-18
+2024-05-18
+Salmonella,500
+E. coli,1000
+Staphylococcus,1500
