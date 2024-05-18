@@ -1,6 +1,7 @@
 package Gestion_experimentos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -15,6 +16,21 @@ public class Bacteria {
     private int[][] foodGrid;
     private Bacteria[][] bacteriaGrid;
     private static int totalBacteria;
+    private String nombre;
+    private Date fecha;
+    private int cantidad;
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public Date getFecha() {
+        return this.fecha;
+    }
+
+    public int getCantidad() {
+        return this.cantidad;
+    }
 
     public Bacteria(int x, int y, int maxX, int maxY, int[][] foodGrid, Bacteria[][] bacteriaGrid) {
         this.x = x;
