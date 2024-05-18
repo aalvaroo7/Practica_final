@@ -42,7 +42,7 @@ public class Bacteria {
         isNewborn = false; // After the first day, the bacteria is no longer a newborn
     }
 
-    private void eat() {
+    public void eat() {
         int foodAvailable = this.foodGrid[this.x][this.y];
         if (foodAvailable >= 100) {
             this.foodConsumed += 20;
