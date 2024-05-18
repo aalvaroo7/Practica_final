@@ -9,6 +9,18 @@ public class Celda {
     private int foodAmount;
     private List<Bacteria> bacterias;
 
+    public void addFood(int cantidadComida) {
+        this.foodAmount += cantidadComida;
+    }
+
+    public List<Bacteria> getBacterias() {
+        return this.bacterias;
+    }
+
+    public int getFoodAmount() {
+        return this.foodAmount;
+    }
+
     public Celda(int x, int y, int foodAmount) {
         this.x = x;
         this.y = y;

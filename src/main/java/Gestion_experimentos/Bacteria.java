@@ -117,7 +117,7 @@ public class Bacteria {
         }
     }
 
-    private List<Bacteria> reproduce() {
+    public List<Bacteria> reproduce() {
         List<Bacteria> newBacterias = new ArrayList<>();
         int numberOfChildren = 0;
 

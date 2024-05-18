@@ -9,17 +9,19 @@ public class PlatoCultivo {
     private int[][][] bacteriaStats;
     private int[][][] foodStats;
     private int currentDay;
+    private int duracion; // Added this line
 
-    public PlatoCultivo(int ancho, int alto) {
+
+    public PlatoCultivo(int ancho, int alto, int duracion) { // Modified this line
         this.ancho = ancho;
         this.alto = alto;
+        this.duracion = duracion; // Added this line
         this.matrizCeldas = new Celda[ancho][alto];
         this.bacteriaStats = new int[duracion][ancho][alto];
         this.foodStats = new int[duracion][ancho][alto];
         this.currentDay = 0;
         inicializarPlato();
     }
-
     private void inicializarPlato() {
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
@@ -80,7 +82,16 @@ public class PlatoCultivo {
             }
         }
     }
-    public void simularDiaCompleto(int patronAlimentacion) {
+
+    public void mostrarResultados() {
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                Celda celda = matrizCeldas[i][j];
+                System.out.println("Cell at (" + i + ", " + j + ") has " + celda.getBacterias().size() + " bacteria.");
+            }
+        }
+    }
+    public void simularDiaCompletoConPatron(int patronAlimentacion) {
         repartirComidaDiaria(patronAlimentacion);
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
@@ -89,14 +100,6 @@ public class PlatoCultivo {
                 for (Bacteria bacteria : bacterias) {
                     bacteria.simulateDailyBehavior();
                 }
-            }
-        }
-    }
-    public void mostrarResultados() {
-        for (int i = 0; i < ancho; i++) {
-            for (int j = 0; j < alto; j++) {
-                Celda celda = matrizCeldas[i][j];
-                System.out.println("Cell at (" + i + ", " + j + ") has " + celda.getBacterias().size() + " bacteria.");
             }
         }
     }

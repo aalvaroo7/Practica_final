@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class Experimento {
+public class Experimento  {
     private String nombre;
     private Date fechaInicio;
     private int duracion;
@@ -97,20 +97,22 @@ public class Experimento {
     }
 
     public static Experimento cargarExperimento(String filePath) {
-        Experimento experimento = null;
+        Experimento e = null;
         try {
             FileInputStream fileIn = new FileInputStream(filePath);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            experimento = (Experimento) in.readObject();
+            e = (Experimento) in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
             i.printStackTrace();
+            return null;
         } catch (ClassNotFoundException c) {
             System.out.println("Experimento class not found");
             c.printStackTrace();
+            return null;
         }
-        return experimento;
+        return e;
     }
     public void guardarExperimento(String filePath) {
         try {
@@ -123,4 +125,5 @@ public class Experimento {
             i.printStackTrace();
         }
     }
+
 }
