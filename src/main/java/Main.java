@@ -57,8 +57,5 @@ public class Main {
         PoblacionBacterias poblacion = new PoblacionBacterias("Poblacion1", fechaInicioPob, fechaFinPob, 1000, 37.0, "Luz natural", 1.5);
         poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
 
-        // Crear la interfaz de usuario y hacerla visible
-        InterfazUsuario interfazUsuario = new InterfazUsuario();
-        interfazUsuario.setVisible(true);
     }
 }

@@ -27,7 +27,6 @@ public class InterfazUsuario extends JFrame {
     private JButton sortBacteriaButton;
     private JTextArea textArea;
     private JScrollPane scrollPane;
-
     public InterfazUsuario() {
         setTitle("Interfaz de Usuario");
         setSize(400, 300);
@@ -210,7 +209,9 @@ public class InterfazUsuario extends JFrame {
         add(guardarButton);
         add(guardarComoButton);
     }
-
+    public JTextArea getTextArea() {
+        return textArea;
+    }
     public static void main(String[] args) {
         InterfazUsuario interfazUsuario = new InterfazUsuario();
         interfazUsuario.setVisible(true);
