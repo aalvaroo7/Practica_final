@@ -2,6 +2,8 @@ package Simulacion;
 
 import Gestion_experimentos.Bacteria;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -72,5 +74,35 @@ public class Experimento {
 
         // Display the results
         platoCultivo.mostrarResultados();
+    }
+    public void addPoblacion(Bacteria bacteria) {
+        this.poblacionesBacterias.add(bacteria);
+    }
+
+    public void removePoblacion(Bacteria bacteria) {
+        this.poblacionesBacterias.remove(bacteria);
+    }
+
+    public void ordenarPoblacionesPorNombre() {
+        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getNombre));
+    }
+
+    public void ordenarPoblacionesPorFecha() {
+        // Assuming Bacteria class has a getFecha method
+        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getFecha));
+    }
+
+    public void ordenarPoblacionesPorCantidad() {
+        // Assuming Bacteria class has a getCantidad method
+        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getCantidad));
+    }
+
+    public void guardarExperimento(String filePath) {
+        // Implement logic to save the experiment to a file
+    }
+
+    public static Experimento cargarExperimento(String filePath) {
+        // Implement logic to load the experiment from a file
+        return null;
     }
 }
