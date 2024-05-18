@@ -39,6 +39,7 @@ public class InterfazUsuario extends JFrame {
         PrintStream printStream = new PrintStream(customOut);
         System.setOut(printStream);
         System.setErr(printStream);
+        
         abrirArchivoButton = new JButton("Abrir Archivo");
         crearExperimentoButton = new JButton("Crear Experimento");
         crearPoblacionButton = new JButton("Crear Población");
