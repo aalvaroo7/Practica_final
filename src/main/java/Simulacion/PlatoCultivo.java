@@ -40,6 +40,10 @@ public class PlatoCultivo {
                 List<Bacteria> bacterias = celda.getBacterias();
                 for (Bacteria bacteria : bacterias) {
                     bacteria.simulateDailyBehavior();
+                    List<Bacteria> newBacterias = bacteria.reproduce();
+                    for (Bacteria newBacteria : newBacterias) {
+                        celda.addBacteria(newBacteria);
+                    }
                 }
             }
         }
