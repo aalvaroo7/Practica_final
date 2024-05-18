@@ -12,11 +12,10 @@ public class Experimento  {
     private Duration duracion;    private int patronAlimentacion;
     private List<Bacteria> poblacionesBacterias;
     private PlatoCultivo platoCultivo;
-
     public Experimento(String nombre, Date fechaInicio, int duracion, int patronAlimentacion, List<Bacteria> poblacionesBacterias) {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
-        this.duracion = duracion;
+        this.duracion = Duration.ofDays(duracion); // Corrected
         this.patronAlimentacion = patronAlimentacion;
         this.poblacionesBacterias = poblacionesBacterias;
         this.platoCultivo = new PlatoCultivo(100, 100); // Assuming a 100x100 petri dish
@@ -66,7 +65,7 @@ public class Experimento  {
         platoCultivo.inicializarPlatoConBacterias(poblacionesBacterias);
 
         // Run the simulation for the specified number of days
-        for (int i = 0; i < duracion; i++) {
+        for (int i = 0; i < duracion.toDays(); i++) { // Corrected
             platoCultivo.simularDiaCompleto(patronAlimentacion);
         }
 
