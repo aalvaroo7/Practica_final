@@ -1,4 +1,4 @@
-package GUI;
+package Aplicacion;
 import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Bacteria;
 

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
 public class Experimento  {
     private String nombre;
     private Date fechaInicio;
@@ -125,5 +124,7 @@ public class Experimento  {
             i.printStackTrace();
         }
     }
-
+    public void addPoblacion(Poblacion poblacion) {
+        this.poblacionesBacterias.addAll(poblacion.getBacterias());
+    }
 }

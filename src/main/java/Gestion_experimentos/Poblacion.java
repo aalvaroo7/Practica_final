@@ -1,6 +1,7 @@
 package Gestion_experimentos;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class Poblacion {
@@ -8,6 +9,7 @@ public class Poblacion {
     private Date fechaInicio;
     private int cantidadInicialBacterias;
     private PlatoCultivo platoCultivo;
+    private List<Bacteria> bacterias;
 
     public Poblacion(String nombre, Date fechaInicio, int cantidadInicialBacterias, PlatoCultivo platoCultivo) {
         this.nombre = nombre;
@@ -45,5 +47,8 @@ public class Poblacion {
         }
     }
 
-    // ... other methods ...
+    public List<Bacteria> getBacterias() {
+        // Assuming that 'bacterias' is a List<Bacteria> field in the Poblacion class
+        return this.bacterias;
+    }
 }

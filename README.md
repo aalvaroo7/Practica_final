@@ -19,7 +19,7 @@ El proyecto se organiza en los siguientes paquetes y clases:
 
 - **Paquete `SimulacionMontecarlo`**: Contiene la clase `SimulacionMontecarlo` que proporciona métodos útiles para la gestión de datos y la manipulación de strings.
 
-- **Paquete `GUI`**: Contiene la clase `InterfazUsuario` que implementa la interfaz de usuario.
+- **Paquete `Aplicacion`**: Contiene la clase `InterfazUsuario` que implementa la interfaz de usuario.
 
 ## Funcionalidades
 
