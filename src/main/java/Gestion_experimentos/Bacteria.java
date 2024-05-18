@@ -39,24 +39,25 @@ public class Bacteria {
         if (foodAvailable >= 100) {
             this.foodConsumed += 20;
             this.foodGrid[this.x][this.y] -= 20; // The bacteria consumes 20 micrograms of food if there are 100 or more
-            generateRandomNumberAndAct();
+            generateRandomNumberAndAct(3, 60, 100);
         } else if (foodAvailable > 9) {
             this.foodConsumed += 10;
             this.foodGrid[this.x][this.y] -= 10; // The bacteria consumes 10 micrograms of food if there are between 10 and 99 micrograms
-            generateRandomNumberAndAct();
+            generateRandomNumberAndAct(6, 20, 100);
         } else {
             this.foodConsumed += foodAvailable;
             this.foodGrid[this.x][this.y] = 0; // The bacteria consumes all the food at its position if there are less than 10 micrograms
+            generateRandomNumberAndAct(20, 60, 100);
         }
     }
 
-    private void generateRandomNumberAndAct() {
+    private void generateRandomNumberAndAct(int deathThreshold, int stayThreshold, int moveThreshold) {
         // Generate a random number between 0 and 100
         int randomNumber = new Random().nextInt(100);
 
-        if (randomNumber < 6) {
+        if (randomNumber < deathThreshold) {
             die();
-        } else if (randomNumber >= 20) {
+        } else if (randomNumber >= stayThreshold && randomNumber < moveThreshold) {
             move(randomNumber);
         }
     }
@@ -65,19 +66,19 @@ public class Bacteria {
         int newX = this.x;
         int newY = this.y;
 
-        if (randomNumber < 30) {
+        if (randomNumber < 65) {
             newY++; // move up
-        } else if (randomNumber < 40) {
-            newX++; // move right
-        } else if (randomNumber < 50) {
-            newY--; // move down
-        } else if (randomNumber < 60) {
-            newX--; // move left
         } else if (randomNumber < 70) {
-            newX++; newY++; // move up right
+            newX++; // move right
+        } else if (randomNumber < 75) {
+            newY--; // move down
         } else if (randomNumber < 80) {
-            newX++; newY--; // move down right
+            newX--; // move left
+        } else if (randomNumber < 85) {
+            newX++; newY++; // move up right
         } else if (randomNumber < 90) {
+            newX++; newY--; // move down right
+        } else if (randomNumber < 95) {
             newX--; newY--; // move down left
         } else {
             newX--; newY++; // move up left
