@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import Gestion_experimentos.*;
 import SimulacionMontecarlo.Simulacion;
@@ -49,7 +51,9 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create a new experiment
-                experimento = new Experimento("Experimento 1", new Date(), 10, 10, new ArrayList<Bacteria>());
+                LocalDate fechaInicio = LocalDate.now();
+                LocalDate fechaFin = fechaInicio.plusDays(10);
+                experimento = new Experimento("Experimento 1", fechaInicio, fechaFin, new ArrayList<>(), 10, 10);
             }
         });
         add(crearExperimentoButton);
@@ -70,7 +74,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Display the names of all populations in the current experiment
-                ArrayList<Bacteria> bacterias = experimento.getPoblacionesBacterias();
+                List<Bacteria> bacterias = experimento.getPoblacionesBacterias();
                 for (Bacteria bacteria : bacterias) {
                     System.out.println(bacteria.getNombre());
                 }
