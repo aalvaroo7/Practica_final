@@ -73,6 +73,4 @@ public class Experimento {
         // Display the results
         platoCultivo.mostrarResultados();
     }
-
-    // ... other methods ...
 }
