@@ -56,4 +56,29 @@ public class SimulacionMontecarlo {
             bacteria.move(3); // move left
         }
     }
+    public void iniciarSimulacion() {
+        Random rand = new Random();
+
+        int ancho = platoCultivo.getAncho();
+        int alto = platoCultivo.getAlto();
+
+        int maxX = rand.nextInt(ancho);
+        int maxY = rand.nextInt(alto);
+
+        int[][] foodGrid = new int[ancho][alto];
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                foodGrid[i][j] = rand.nextInt(100); // Generate random food amount between 0 and 99
+            }
+        }
+
+        Bacteria[][] bacteriaGrid = new Bacteria[ancho][alto];
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                if (rand.nextBoolean()) { // 50% chance to create a bacteria at this position
+                    bacteriaGrid[i][j] = new Bacteria(i, j, maxX, maxY, foodGrid, bacteriaGrid);
+                }
+            }
+        }
+    }
 }
