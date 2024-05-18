@@ -13,6 +13,7 @@ public class Simulacion {
     private int totalBacteria;
     private int totalFood;
     Random rand = new Random();
+
     public Simulacion(PlatoCultivo platoCultivo, Experimento experimento) {
         this.platoCultivo = platoCultivo;
         this.experimento = experimento;
@@ -65,4 +66,5 @@ public class Simulacion {
                 }
             }
         }
+    }
 }
