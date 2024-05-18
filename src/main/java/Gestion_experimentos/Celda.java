@@ -20,8 +20,8 @@ public class Celda {
         if (!bacterias.isEmpty() && foodAmount >= 100) {
             int totalFoodConsumed = 0;
             for (Bacteria bacteria : bacterias) {
-                int foodConsumed = bacteria.eat(20); // Each bacteria eats 20 micrograms of food
-                totalFoodConsumed += foodConsumed;
+                bacteria.eat(); // Each bacteria eats
+                totalFoodConsumed += bacteria.getFoodConsumed(); // Get the amount of food consumed by the bacteria
             }
             foodAmount -= totalFoodConsumed; // Subtract the total food consumed from the food amount in the cell
         }
