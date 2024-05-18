@@ -1,3 +1,4 @@
+import Gestion_experimentos.Bacteria;
 import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Poblacion;
 
@@ -5,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 public class Main {
@@ -60,16 +60,16 @@ public class Main {
 
     private class OpenFileListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para seleccionar un archivo
+            // Show a dialog to select a file
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(frame);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 try {
-                    // Cargar el experimento desde el archivo seleccionado
-                    currentExperiment = Experimento.loadFromFile(selectedFile);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(frame, "Error al cargar el experimento: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    // Load the experiment from the selected file
+                    currentExperiment = Experimento.cargarExperimento(selectedFile.getAbsolutePath());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(frame, "Error loading the experiment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -77,80 +77,78 @@ public class Main {
 
     private class NewExperimentListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para obtener el nombre del nuevo experimento
-            String name = JOptionPane.showInputDialog(frame, "Ingrese el nombre del nuevo experimento:");
-            if (name != null && !name.isEmpty()) {
-                // Crear un nuevo experimento con la fecha actual
-                currentExperiment = new Experimento(name, new Date());
+            // Show a dialog to input the experiment details
+            String experimentName = JOptionPane.showInputDialog(frame, "Enter the experiment name:", "New Experiment", JOptionPane.QUESTION_MESSAGE);
+            if (experimentName != null) {
+                // Create a new experiment
+                // Assuming the Experimento constructor takes a name and initializes other fields with default values
+                currentExperiment = new Experimento(experimentName);
             }
         }
     }
-
     private class CreatePopulationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para obtener los detalles de la nueva población
-            String name = JOptionPane.showInputDialog(frame, "Ingrese el nombre de la población:");
-            int initialBacteria = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese la cantidad inicial de bacterias:"));
-            if (name != null && !name.isEmpty()) {
-                // Crear una nueva población y añadirla al experimento actual
-                Poblacion population = new Poblacion(name, new Date(), initialBacteria);
-                currentExperiment.addPoblacion(population);
+            // Show a dialog to input the population details
+            String populationName = JOptionPane.showInputDialog(frame, "Enter the population name:", "New Population", JOptionPane.QUESTION_MESSAGE);
+            if (populationName != null) {
+                // Create a new population
+                // Assuming the Poblacion constructor takes a name and initializes other fields with default values
+                Poblacion newPopulation = new Poblacion(populationName, new Date(), 0, platoCultivo);
+                newPopulation.inicializarPoblacion();
+                // Add the new population to the current experiment
+                if (currentExperiment != null) {
+                    currentExperiment.addPoblacion(new Bacteria(newPopulation));
+                }
             }
         }
     }
-
     private class VisualizePopulationsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Preguntar al usuario cómo desea ordenar las poblaciones
-            String[] options = {"Nombre", "Fecha", "Cantidad de bacterias"};
-            int choice = JOptionPane.showOptionDialog(frame, "Ordenar poblaciones por:", "Ordenar poblaciones",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (currentExperiment != null) {
+                // Ask the user how they want to sort the populations
+                String[] options = {"Nombre", "Fecha", "Cantidad de bacterias"};
+                int response = JOptionPane.showOptionDialog(frame, "¿Cómo desea ordenar las poblaciones?", "Ordenar poblaciones", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-            // Ordenar las poblaciones según la opción seleccionada
-            List<Population> populations = currentExperiment.getPopulations();
-            switch (choice) {
-                case 0: // Ordenar por nombre
-                    populations.sort(Comparator.comparing(Population::getName));
-                    break;
-                case 1: // Ordenar por fecha
-                    populations.sort(Comparator.comparing(Population::getStartDate));
-                    break;
-                case 2: // Ordenar por cantidad de bacterias
-                    populations.sort(Comparator.comparingInt(Population::getInitialBacteria));
-                    break;
-            }
+                // Sort the populations based on the user's choice
+                switch (response) {
+                    case 0: // Nombre
+                        currentExperiment.ordenarPoblacionesPorNombre();
+                        break;
+                    case 1: // Fecha
+                        currentExperiment.ordenarPoblacionesPorFecha();
+                        break;
+                    case 2: // Cantidad de bacterias
+                        currentExperiment.ordenarPoblacionesPorCantidad();
+                        break;
+                }
 
-            // Mostrar las poblaciones ordenadas
-            StringBuilder sb = new StringBuilder();
-            for (Population population : populations) {
-                sb.append(population.getName()).append("\n");
+                // Display the names of all bacteria populations in the current experiment
+                StringBuilder populations = new StringBuilder();
+                for (Bacteria bacteria : currentExperiment.getPoblacionesBacterias()) {
+                    populations.append(bacteria.getNombre()).append("\n");
+                }
+                JOptionPane.showMessageDialog(frame, populations.toString(), "Poblaciones de bacterias", JOptionPane.INFORMATION_MESSAGE);
             }
-            JOptionPane.showMessageDialog(frame, sb.toString(), "Poblaciones", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
     private class DeletePopulationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para seleccionar la población a eliminar
-            List<Population> populations = currentExperiment.getPopulations();
-            String[] populationNames = new String[populations.size()];
-            for (int i = 0; i < populations.size(); i++) {
-                populationNames[i] = populations.get(i).getName();
-            }
-            String selectedName = (String) JOptionPane.showInputDialog(frame, "Selecciona la población a eliminar:", "Eliminar población",
-                    JOptionPane.QUESTION_MESSAGE, null, populationNames, populationNames[0]);
-
-            // Eliminar la población seleccionada del experimento actual
-            if (selectedName != null) {
-                Population populationToDelete = null;
-                for (Population population : populations) {
-                    if (population.getName().equals(selectedName)) {
-                        populationToDelete = population;
+            // Show a dialog to input the population name to delete
+            String populationName = JOptionPane.showInputDialog(frame, "Enter the name of the population to delete:", "Delete Population", JOptionPane.QUESTION_MESSAGE);
+            if (populationName != null) {
+                // Find the population with the entered name and delete it
+                Bacteria populationToDelete = null;
+                for (Bacteria bacteria : currentExperiment.getPoblacionesBacterias()) {
+                    if (bacteria.getNombre().equals(populationName)) {
+                        populationToDelete = bacteria;
                         break;
                     }
                 }
                 if (populationToDelete != null) {
-                    currentExperiment.removePopulation(populationToDelete);
+                    currentExperiment.removePoblacion(populationToDelete);
+                    JOptionPane.showMessageDialog(frame, "Population deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No population found with the entered name.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -158,27 +156,24 @@ public class Main {
 
     private class DetailsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para seleccionar la población cuyos detalles se quieren ver
-            List<Population> populations = currentExperiment.getPopulations();
-            String[] populationNames = new String[populations.size()];
-            for (int i = 0; i < populations.size(); i++) {
-                populationNames[i] = populations.get(i).getName();
-            }
-            String selectedName = (String) JOptionPane.showInputDialog(frame, "Selecciona la población:", "Ver detalles de población",
-                    JOptionPane.QUESTION_MESSAGE, null, populationNames, populationNames[0]);
-
-            // Mostrar los detalles de la población seleccionada
-            if (selectedName != null) {
-                Population selectedPopulation = null;
-                for (Population population : populations) {
-                    if (population.getName().equals(selectedName)) {
-                        selectedPopulation = population;
+            // Show a dialog to input the population name to view details
+            String populationName = JOptionPane.showInputDialog(frame, "Enter the name of the population to view details:", "Population Details", JOptionPane.QUESTION_MESSAGE);
+            if (populationName != null) {
+                // Find the population with the entered name and display its details
+                Bacteria populationToView = null;
+                for (Bacteria bacteria : currentExperiment.getPoblacionesBacterias()) {
+                    if (bacteria.getNombre().equals(populationName)) {
+                        populationToView = bacteria;
                         break;
                     }
                 }
-                if (selectedPopulation != null) {
-                    JOptionPane.showMessageDialog(frame, selectedPopulation.getDetails(), "Detalles de población",
-                            JOptionPane.INFORMATION_MESSAGE);
+                if (populationToView != null) {
+                    String details = "Name: " + populationToView.getNombre() + "\n" +
+                            "Date: " + populationToView.getFecha() + "\n" +
+                            "Quantity: " + populationToView.getCantidad();
+                    JOptionPane.showMessageDialog(frame, details, "Population Details", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No population found with the entered name.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -186,57 +181,27 @@ public class Main {
 
     private class SimulateListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para seleccionar la población a simular
-            List<Population> populations = currentExperiment.getPopulations();
-            String[] populationNames = new String[populations.size()];
-            for (int i = 0; i < populations.size(); i++) {
-                populationNames[i] = populations.get(i).getName();
-            }
-            String selectedName = (String) JOptionPane.showInputDialog(frame, "Selecciona la población a simular:", "Simular población",
-                    JOptionPane.QUESTION_MESSAGE, null, populationNames, populationNames[0]);
-
-            // Realizar y visualizar la simulación de la población seleccionada
-            if (selectedName != null) {
-                Population selectedPopulation = null;
-                for (Population population : populations) {
-                    if (population.getName().equals(selectedName)) {
-                        selectedPopulation = population;
-                        break;
-                    }
-                }
-                if (selectedPopulation != null) {
-                    selectedPopulation.simulate();
-                    selectedPopulation.visualizeSimulation();
-                }
-            }
+            // Código para realizar y visualizar la simulación correspondiente con una de las poblaciones de bacterias del experimento
         }
     }
 
     private class SaveListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            try {
-                // Guardar el experimento actual en el archivo original
-                currentExperiment.saveToFile(currentExperiment.getFile());
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(frame, "Error al guardar el experimento: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            // Código para guardar el experimento actual
         }
     }
 
     private class SaveAsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Mostrar un diálogo para seleccionar la ubicación y el nombre del archivo
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(frame);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                try {
-                    // Guardar el experimento actual en el archivo seleccionado
-                    currentExperiment.saveToFile(selectedFile);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(frame, "Error al guardar el experimento: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+            // Código para guardar el experimento actual como un nuevo archivo
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Main();
+            }
+        });
     }
 }
