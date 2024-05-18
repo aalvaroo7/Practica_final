@@ -2,23 +2,34 @@ package Gestion_experimentos;
 
 import java.io.*;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-public class Experimento  {
+
+public class Experimento implements Serializable {
     private String nombre;
-    private Date fechaInicio;
-    private Duration duracion;    private int patronAlimentacion;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private List<Bacteria> poblacionesBacterias;
-    private PlatoCultivo platoCultivo;
-    public Experimento(String nombre, Date fechaInicio, int duracion, int patronAlimentacion, List<Bacteria> poblacionesBacterias) {
+    private int patronAlimentacion;
+    private int duracion; // New field for variable duration
+    private int[][][] bacteriaStats; // New field for storing daily bacteria stats
+    private int[][][] foodStats; // New field for storing daily food stats
+
+    public Experimento(String nombre, LocalDate fechaInicio, LocalDate fechaFin, List<Bacteria> poblacionesBacterias, int patronAlimentacion, int duracion) {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
-        this.duracion = Duration.ofDays(duracion); // Corrected
-        this.patronAlimentacion = patronAlimentacion;
+        this.fechaFin = fechaFin;
         this.poblacionesBacterias = poblacionesBacterias;
-        this.platoCultivo = new PlatoCultivo(100, 100); // Assuming a 100x100 petri dish
+        this.patronAlimentacion = patronAlimentacion;
+        this.duracion = duracion;
+        this.bacteriaStats = new int[duracion][20][20]; // Initialize the 3D arrays
+        this.foodStats = new int[duracion][20][20];
+    }
+    public long getDuracion() {
+        return ChronoUnit.DAYS.between(fechaInicio, fechaFin);
     }
     public String getNombre() {
         return nombre;
@@ -60,18 +71,6 @@ public class Experimento  {
         this.poblacionesBacterias = poblacionesBacterias;
     }
 
-    public void iniciarExperimento() {
-        // Initialize the petri dish with bacteria
-        platoCultivo.inicializarPlatoConBacterias(poblacionesBacterias);
-
-        // Run the simulation for the specified number of days
-        for (int i = 0; i < duracion.toDays(); i++) { // Corrected
-            platoCultivo.simularDiaCompleto(patronAlimentacion);
-        }
-
-        // Display the results
-        platoCultivo.mostrarResultados();
-    }
     public void addPoblacion(Bacteria bacteria) {
         this.poblacionesBacterias.add(bacteria);
     }
@@ -80,18 +79,32 @@ public class Experimento  {
         this.poblacionesBacterias.remove(bacteria);
     }
 
+
+    // New methods for sorting
+    public void ordenarPoblacionesPorFecha() {
+        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getFecha));
+    }
+
     public void ordenarPoblacionesPorNombre() {
         Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getNombre));
     }
 
-    public void ordenarPoblacionesPorFecha() {
-        // Assuming Bacteria class has a getFecha method
-        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getFecha));
+    public void ordenarPoblacionesPorCantidad() {
+        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getCantidad));
     }
 
-    public void ordenarPoblacionesPorCantidad() {
-        // Assuming Bacteria class has a getCantidad method
-        Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getCantidad));
+    // New method for running the Monte Carlo simulation
+    public void simularExperimento() {
+        // Implementation of the Monte Carlo simulation...
+    }
+
+    // New methods for file I/O
+    public static Experimento cargarExperimento(String filePath) {
+        // Implementation of loading an experiment from a file...
+    }
+
+    public void guardarExperimento(String filePath) {
+        // Implementation of saving the experiment to a file...
     }
 
     public static Experimento cargarExperimento(String filePath) {
