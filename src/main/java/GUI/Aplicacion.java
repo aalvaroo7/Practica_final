@@ -1,6 +1,8 @@
 package GUI;
 import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Bacteria;
+
+import java.util.Date;
 import java.util.List;
 
 public class Aplicacion {
