@@ -75,6 +75,8 @@ public class Main {
     private class VisualizePopulationsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             // Código para visualizar los nombres de todas las poblaciones de bacterias del experimento actual
+            // Preguntar al usuario si desea ver las poblaciones ordenadas por nombre, por fecha o por cantidad de bacterias
+            // Mostrar las poblaciones ordenadas por el campo adecuado
         }
     }
 
