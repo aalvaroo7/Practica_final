@@ -1,6 +1,7 @@
 package Gestion_experimentos;
 
 import java.io.*;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -8,8 +9,7 @@ import java.util.List;
 public class Experimento  {
     private String nombre;
     private Date fechaInicio;
-    private int duracion;
-    private int patronAlimentacion;
+    private Duration duracion;    private int patronAlimentacion;
     private List<Bacteria> poblacionesBacterias;
     private PlatoCultivo platoCultivo;
 
@@ -37,12 +37,12 @@ public class Experimento  {
         this.fechaInicio = fechaInicio;
     }
 
-    public int getDuracion() {
+    public Duration getDuracion() {
         return duracion;
     }
 
     public void setDuracion(int duracion) {
-        this.duracion = duracion;
+        this.duracion = Duration.ofDays(duracion);
     }
 
     public int getPatronAlimentacion() {
