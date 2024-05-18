@@ -28,8 +28,10 @@ public class Bacteria {
     }
 
     public void simulateDailyBehavior() {
-        eat();
-        move();
+        for (int i = 0; i < 10; i++) {
+            eat();
+            move();
+        }
         reproduce();
         die();
     }
@@ -90,22 +92,25 @@ public class Bacteria {
             this.y = newY;
         }
     }
+
     private List<Bacteria> reproduce() {
         List<Bacteria> newBacterias = new ArrayList<>();
-        // Assuming a bacteria can reproduce if it has consumed more than 10 units of food
-        if (this.foodConsumed > 10 && totalBacteria < this.maxX * this.maxY) { // Check if the petri dish has reached its carrying capacity
-            // Generate a random position nearby for the new bacteria
-            int newX = this.x + generateRandomNumber(3) - 1; // -1, 0, or 1
-            int newY = this.y + generateRandomNumber(3) - 1; // -1, 0, or 1
+        int numberOfChildren = 0;
 
-            // Check if the new position is within the boundaries of the petri dish and if it's not occupied by another bacteria
-            if (newX >= 0 && newX < this.maxX && newY >= 0 && newY < this.maxY && this.bacteriaGrid[newX][newY] == null) {
-                // Create a new bacteria at the new position
-                Bacteria newBacteria = new Bacteria(newX, newY, this.maxX, this.maxY, this.foodGrid, this.bacteriaGrid);
-                newBacterias.add(newBacteria);
-                this.bacteriaGrid[newX][newY] = newBacteria; // Update the bacteria grid
-            }
+        if (this.foodConsumed >= 150) {
+            numberOfChildren = 3;
+        } else if (this.foodConsumed >= 100) {
+            numberOfChildren = 2;
+        } else if (this.foodConsumed >= 50) {
+            numberOfChildren = 1;
         }
+
+        for (int i = 0; i < numberOfChildren; i++) {
+            Bacteria newBacteria = new Bacteria(this.x, this.y, this.maxX, this.maxY, this.foodGrid, this.bacteriaGrid);
+            newBacterias.add(newBacteria);
+            this.bacteriaGrid[this.x][this.y] = newBacteria; // Update the bacteria grid
+        }
+
         return newBacterias;
     }
 
