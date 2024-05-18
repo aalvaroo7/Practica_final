@@ -95,7 +95,7 @@ public class Bacteria {
         }
     }
 
-    private void move(int randomNumber) {
+    public void move(int randomNumber) {
         int newX = this.x;
         int newY = this.y;
 

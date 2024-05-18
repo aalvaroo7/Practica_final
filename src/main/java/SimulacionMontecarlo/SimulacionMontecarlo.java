@@ -1,6 +1,8 @@
 package SimulacionMontecarlo;
 
+import Gestion_experimentos.Bacteria;
 import Gestion_experimentos.Experimento;
+import Gestion_experimentos.PlatoCultivo;
 import java.util.Random;
 
 public class SimulacionMontecarlo {
@@ -9,6 +11,8 @@ public class SimulacionMontecarlo {
     private int diaActual;
     private int totalBacteria;
     private int totalFood;
+    Random rand = new Random();
+
     public SimulacionMontecarlo(PlatoCultivo platoCultivo, Experimento experimento) {
         this.platoCultivo = platoCultivo;
         this.experimento = experimento;
@@ -34,22 +38,22 @@ public class SimulacionMontecarlo {
         totalBacteria = platoCultivo.getTotalBacteria();
         totalFood = platoCultivo.getTotalFood();
     }
+
     private int generarNumeroAleatorio(int limit) {
-        Random random = new Random();
-        return random.nextInt(limit);
+        return rand.nextInt(limit);
     }
 
-    private void calcularMovimientoSegunTablaProbabilidades() {
+    private void calcularMovimientoSegunTablaProbabilidades(Bacteria bacteria) {
         int randomNumber = generarNumeroAleatorio(100);
 
         if (randomNumber < 20) {
-            // move up
+            bacteria.move(0); // move up
         } else if (randomNumber < 50) {
-            // move right
+            bacteria.move(1); // move right
         } else if (randomNumber < 75) {
-            // move down
+            bacteria.move(2); // move down
         } else {
-            // move left
+            bacteria.move(3); // move left
         }
     }
 }
