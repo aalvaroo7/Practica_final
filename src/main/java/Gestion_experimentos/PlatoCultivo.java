@@ -131,4 +131,32 @@ public class PlatoCultivo {
             this.foodStats = new int[duracion][ancho][alto];
         }
     }
+    public int getTotalBacteria() {
+        int totalBacteria = 0;
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                totalBacteria += matrizCeldas[i][j].getBacterias().size();
+            }
+        }
+        return totalBacteria;
+    }
+
+    public int getTotalFood() {
+        int totalFood = 0;
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                totalFood += matrizCeldas[i][j].getFoodAmount();
+            }
+        }
+        return totalFood;
+    }
+
+    public int getAncho() {
+        return this.ancho;
+    }
+
+    public int getAlto() {
+        return this.alto;
+    }
+
 }
