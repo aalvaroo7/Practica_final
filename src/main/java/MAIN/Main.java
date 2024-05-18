@@ -4,9 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.ArrayList;
+import java.io.File;
+
 import Gestion_experimentos.*;
+import SimulacionMontecarlo.Simulacion;
 
 public class Main extends JFrame {
     private JButton abrirArchivoButton;
@@ -21,96 +22,107 @@ public class Main extends JFrame {
 
     private Experimento experimentoActual;
 
-    public MainFrame() {
+    public Main() {
         setLayout(new FlowLayout());
 
-        abrirArchivoButton = new JButton("Abrir un archivo que contenga un experimento");
         abrirArchivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para abrir un archivo que contenga un experimento
+                // Use a file chooser to select the file
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    // Load the experiment from the file
+                    experimento = Experimento.loadFromFile(selectedFile);
+                }
             }
         });
-        add(abrirArchivoButton);
 
-        crearExperimentoButton = new JButton("Crear un nuevo experimento");
         crearExperimentoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para crear un nuevo experimento
+                // Create a new experiment
+                experimento = new Experimento();
             }
         });
-        add(crearExperimentoButton);
 
-        crearPoblacionButton = new JButton("Crear una población de bacterias y añadirla al experimento actual");
         crearPoblacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para crear una población de bacterias y añadirla al experimento actual
+                // Create a new population and add it to the current experiment
+                Poblacion poblacion = new Poblacion();
+                experimento.addPoblacion(poblacion);
             }
         });
-        add(crearPoblacionButton);
 
-        visualizarNombresButton = new JButton("Visualizar los nombres de todas las poblaciones de bacterias del experimento actual");
         visualizarNombresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para visualizar los nombres de todas las poblaciones de bacterias del experimento actual
+                // Display the names of all populations in the current experiment
+                List<String> nombres = experimento.getNombresPoblaciones();
+                for (String nombre : nombres) {
+                    System.out.println(nombre);
+                }
             }
         });
-        add(visualizarNombresButton);
 
-        borrarPoblacionButton = new JButton("Borrar una población de bacterias del experimento actual");
         borrarPoblacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para borrar una población de bacterias del experimento actual
+                // Remove a population from the current experiment
+                // This could be done by asking the user for the name of the population to remove
+                String nombre = JOptionPane.showInputDialog("Enter the name of the population to remove");
+                experimento.removePoblacion(nombre);
             }
         });
-        add(borrarPoblacionButton);
 
-        verInfoButton = new JButton("Ver información detallada de una población de bacterias del experimento actual");
         verInfoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para ver información detallada de una población de bacterias del experimento actual
+                // Display detailed information about a population
+                // This could be done by asking the user for the name of the population to display
+                String nombre = JOptionPane.showInputDialog("Enter the name of the population to display");
+                Poblacion poblacion = experimento.getPoblacion(nombre);
+                System.out.println(poblacion.getDetailedInfo());
             }
         });
-        add(verInfoButton);
 
-        realizarSimulacionButton = new JButton("Realizar y visualizar la simulación correspondiente con una de las poblaciones de bacterias del experimento");
         realizarSimulacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para realizar y visualizar la simulación correspondiente con una de las poblaciones de bacterias del experimento
+                // Perform and display the simulation for a population
+                // This could be done by asking the user for the name of the population to simulate
+                String nombre = JOptionPane.showInputDialog("Enter the name of the population to simulate");
+                Poblacion poblacion = experimento.getPoblacion(nombre);
+                Simulacion simulacion = new Simulacion(platoCultivo, poblacion);
+                simulacion.simular();
+                simulacion.mostrarResultados();
             }
         });
-        add(realizarSimulacionButton);
 
-        guardarButton = new JButton("Guardar");
         guardarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para guardar
+                // Save the current experiment
+                experimento.save();
             }
         });
-        add(guardarButton);
 
-        guardarComoButton = new JButton("Guardar como");
         guardarComoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Código para guardar como
+                // Save the current experiment to a new file
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showSaveDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    experimento.saveAs(selectedFile);
+                }
             }
         });
-        add(guardarComoButton);
-
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
 
     public static void main(String[] args) {
-        new MainFrame();
+        new Main();
     }
 }
