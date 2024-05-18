@@ -1,6 +1,7 @@
-package Simulacion;
+package Gestion_experimentos;
 
-import Gestion_experimentos.Bacteria;
+import Simulacion.Bacteria;
+import Simulacion.PlatoCultivo;
 
 import java.util.Collections;
 import java.util.Comparator;

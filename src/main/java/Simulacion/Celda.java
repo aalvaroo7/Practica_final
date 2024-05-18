@@ -1,7 +1,5 @@
 package Simulacion;
 
-import Gestion_experimentos.Bacteria;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package GUI;
 
-import Gestion_experimentos.Bacteria;
+import Simulacion.Bacteria;
 import Gestion_experimentos.Experimento;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
 
