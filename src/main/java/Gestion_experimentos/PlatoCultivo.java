@@ -67,4 +67,37 @@ public class PlatoCultivo {
         }
         return estadisticas;
     }
+    public void inicializarPlatoConBacterias(List<Bacteria> bacterias) {
+        int index = 0;
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                if (index < bacterias.size()) {
+                    matrizCeldas[i][j].addBacteria(bacterias.get(index));
+                    index++;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+    public void simularDiaCompleto(int patronAlimentacion) {
+        repartirComidaDiaria(patronAlimentacion);
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                Celda celda = matrizCeldas[i][j];
+                List<Bacteria> bacterias = celda.getBacterias();
+                for (Bacteria bacteria : bacterias) {
+                    bacteria.simulateDailyBehavior();
+                }
+            }
+        }
+    }
+    public void mostrarResultados() {
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                Celda celda = matrizCeldas[i][j];
+                System.out.println("Cell at (" + i + ", " + j + ") has " + celda.getBacterias().size() + " bacteria.");
+            }
+        }
+    }
 }
