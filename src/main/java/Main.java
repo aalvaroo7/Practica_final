@@ -4,6 +4,7 @@ import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Bacteria;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
 
+import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +17,7 @@ public class Main {
         PrintStream printStream = new PrintStream(new CustomOutputStream(interfazUsuario.getTextArea()));
         System.setOut(printStream);
         System.setErr(printStream);
-        // ...
+
         interfazUsuario.setVisible(true);
         // Código existente para crear y guardar un experimento
         Date fechaInicioExp = new Date(); // fecha actual
@@ -56,6 +57,11 @@ public class Main {
         Date fechaFinPob = new Date(); // fecha actual
         PoblacionBacterias poblacion = new PoblacionBacterias("Poblacion1", fechaInicioPob, fechaFinPob, 1000, 37.0, "Luz natural", 1.5);
         poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
+        new File(new File("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final1").getParent()).mkdirs();
+        new File(new File("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final2").getParent()).mkdirs();
 
+        // Ahora puedes guardar el experimento y la población
+        experimento.guardarExperimento("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final1");
+        poblacion.guardarPoblacion("C:\\Users\\ALVARO MARTIN\\IdeaProjects\\Practica_final2");
     }
 }
