@@ -12,7 +12,7 @@ public class PlatoCultivo {
     private int duracion; // Added this line
 
 
-    public PlatoCultivo(int ancho, int alto, int duracion) { // Modified this line
+    public PlatoCultivo(int ancho, int alto) { // Modified this line
         this.ancho = ancho;
         this.alto = alto;
         this.duracion = duracion; // Added this line
