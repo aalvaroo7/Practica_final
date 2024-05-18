@@ -1,5 +1,6 @@
 package Gestion_experimentos;
 
+import java.io.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -95,12 +96,31 @@ public class Experimento {
         Collections.sort(this.poblacionesBacterias, Comparator.comparing(Bacteria::getCantidad));
     }
 
-    public void guardarExperimento(String filePath) {
-        // Implement logic to save the experiment to a file
-    }
-
     public static Experimento cargarExperimento(String filePath) {
-        // Implement logic to load the experiment from a file
-        return null;
+        Experimento experimento = null;
+        try {
+            FileInputStream fileIn = new FileInputStream(filePath);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            experimento = (Experimento) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Experimento class not found");
+            c.printStackTrace();
+        }
+        return experimento;
+    }
+    public void guardarExperimento(String filePath) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(filePath);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
     }
 }

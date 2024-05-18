@@ -28,7 +28,13 @@ public class Poblacion {
     }
 
     public void visualizarSimulacion() {
-        // Implement logic to visualize the simulation
+        int[][] estadisticasDiarias = obtenerEstadisticasDiarias();
+        for (int i = 0; i < estadisticasDiarias.length; i++) {
+            for (int j = 0; j < estadisticasDiarias[i].length; j++) {
+                System.out.print(estadisticasDiarias[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     // ... other methods ...
