@@ -1,5 +1,6 @@
 import Gestion_experimentos.Bacteria;
 import Gestion_experimentos.Experimento;
+import Gestion_experimentos.PlatoCultivo;
 import Gestion_experimentos.Poblacion;
 
 import javax.swing.*;
@@ -92,12 +93,12 @@ public class Main {
             String populationName = JOptionPane.showInputDialog(frame, "Enter the population name:", "New Population", JOptionPane.QUESTION_MESSAGE);
             if (populationName != null) {
                 // Create a new population
-                // Assuming the Poblacion constructor takes a name and initializes other fields with default values
-                Poblacion newPopulation = new Poblacion(populationName, new Date(), 0, platoCultivo);
+                // Assuming the Poblacion constructor takes a name, a start date, an initial quantity of bacteria, and a PlatoCultivo object
+                Poblacion newPopulation = new Poblacion(populationName, new Date(), 0,platoCultivo);
                 newPopulation.inicializarPoblacion();
                 // Add the new population to the current experiment
                 if (currentExperiment != null) {
-                    currentExperiment.addPoblacion(new Bacteria(newPopulation));
+                    currentExperiment.addPoblacion(newPopulation);
                 }
             }
         }
@@ -205,13 +206,33 @@ public class Main {
 
     private class SaveListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Código para guardar el experimento actual
+            if (currentExperiment != null) {
+                // Show a dialog to input the file path to save the experiment
+                String filePath = JOptionPane.showInputDialog(frame, "Enter the file path to save the experiment:", "Save Experiment", JOptionPane.QUESTION_MESSAGE);
+                if (filePath != null) {
+                    // Save the current experiment to the entered file path
+                    currentExperiment.guardarExperimento(filePath);
+                    JOptionPane.showMessageDialog(frame, "Experiment saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "No current experiment to save.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
     private class SaveAsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Código para guardar el experimento actual como un nuevo archivo
+            if (currentExperiment != null) {
+                // Show a dialog to input the new file path to save the experiment
+                String newFilePath = JOptionPane.showInputDialog(frame, "Enter the new file path to save the experiment:", "Save Experiment As", JOptionPane.QUESTION_MESSAGE);
+                if (newFilePath != null) {
+                    // Save the current experiment to the entered new file path
+                    currentExperiment.guardarExperimento(newFilePath);
+                    JOptionPane.showMessageDialog(frame, "Experiment saved successfully to the new file.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "No current experiment to save.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
