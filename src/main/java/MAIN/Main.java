@@ -70,7 +70,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Display the names of all populations in the current experiment
-                List<Bacteria> bacterias = experimento.getPoblacionesBacterias();
+                ArrayList<Bacteria> bacterias = experimento.getPoblacionesBacterias();
                 for (Bacteria bacteria : bacterias) {
                     System.out.println(bacteria.getNombre());
                 }

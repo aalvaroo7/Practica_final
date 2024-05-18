@@ -1,13 +1,10 @@
 package Gestion_experimentos;
-
+import java.util.Date;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Experimento implements Serializable {
     private String nombre;
@@ -23,10 +20,10 @@ public class Experimento implements Serializable {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.poblacionesBacterias = poblacionesBacterias;
+        this.poblacionesBacterias = new ArrayList<>(poblacionesBacterias); // Crear un nuevo ArrayList a partir de la lista pasada
         this.patronAlimentacion = patronAlimentacion;
         this.duracion = duracion;
-        this.bacteriaStats = new int[duracion][20][20]; // Initialize the 3D arrays
+        this.bacteriaStats = new int[duracion][20][20]; // Inicializar los arrays tridimensionales
         this.foodStats = new int[duracion][20][20];
     }
     public long getDuracion() {
@@ -40,15 +37,15 @@ public class Experimento implements Serializable {
         this.nombre = nombre;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
     public void setDuracion(int duracion) {
-        this.duracion = Duration.ofDays(duracion);
+        this.duracion = duracion;
     }
 
     public int getPatronAlimentacion() {
