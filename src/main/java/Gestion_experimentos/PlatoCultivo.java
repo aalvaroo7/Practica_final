@@ -1,4 +1,4 @@
-package Simulacion;
+package Gestion_experimentos;
 
 import java.util.List;
 

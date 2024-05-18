@@ -1,6 +1,6 @@
-package Simulacion;
+package Gestion_experimentos;
+
 import java.util.Date;
-import java.util.List;
 
 public class Poblacion {
     private String nombre;
