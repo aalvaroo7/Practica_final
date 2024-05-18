@@ -2,6 +2,8 @@ package Aplicacion;
 import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Bacteria;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +19,9 @@ public class Aplicacion {
     }
 
     public void crearExperimento(String nombre, Date fechaInicio, int duracion, int patronAlimentacion, List<Bacteria> poblacionesBacterias) {
-        this.experimentoActual = new Experimento(nombre, fechaInicio, duracion, patronAlimentacion, poblacionesBacterias);
+        LocalDate fechaInicioLocalDate = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaFin = fechaInicioLocalDate.plusDays(duracion);
+        this.experimentoActual = new Experimento(nombre, fechaInicioLocalDate, fechaFin, poblacionesBacterias, patronAlimentacion, duracion);
     }
 
     public void crearPoblacion(Bacteria bacteria) {

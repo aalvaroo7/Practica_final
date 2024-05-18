@@ -16,6 +16,12 @@ public class Experimento implements Serializable {
     private int[][][] bacteriaStats; // New field for storing daily bacteria stats
     private int[][][] foodStats; // New field for storing daily food stats
 
+    public void iniciarExperimento() {
+        for (Bacteria bacteria : this.poblacionesBacterias) {
+            bacteria.simulateDailyBehavior();
+        }
+    }
+
     public Experimento(String nombre, LocalDate fechaInicio, LocalDate fechaFin, List<Bacteria> poblacionesBacterias, int patronAlimentacion, int duracion) {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
