@@ -8,11 +8,17 @@ public class PlatoCultivo {
     private int ancho;
     private int alto;
     private Celda[][] matrizCeldas;
+    private int[][][] bacteriaStats;
+    private int[][][] foodStats;
+    private int currentDay;
 
     public PlatoCultivo(int ancho, int alto) {
         this.ancho = ancho;
         this.alto = alto;
         this.matrizCeldas = new Celda[ancho][alto];
+        this.bacteriaStats = new int[duracion][ancho][alto];
+        this.foodStats = new int[duracion][ancho][alto];
+        this.currentDay = 0;
         inicializarPlato();
     }
 
@@ -32,7 +38,8 @@ public class PlatoCultivo {
         }
     }
 
-    public void simularDiaCompleto() {
+    public void simularDiaCompleto(int cantidadComida) {
+        repartirComidaDiaria(cantidadComida);
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
                 Celda celda = matrizCeldas[i][j];
@@ -45,8 +52,11 @@ public class PlatoCultivo {
                         celda.addBacteria(newBacteria);
                     }
                 }
+                bacteriaStats[currentDay][i][j] = celda.getBacterias().size();
+                foodStats[currentDay][i][j] = celda.getFoodAmount();
             }
         }
+        currentDay++;
     }
 
     public int[][] obtenerEstadisticas() {
