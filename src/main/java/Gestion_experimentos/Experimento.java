@@ -70,6 +70,7 @@ public class Experimento {
     public void guardarExperimento(String rutaArchivo) {
         try (PrintWriter out = new PrintWriter(new FileWriter(rutaArchivo))) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            out.println(nombre); // Write the name to the file
             out.println(sdf.format(fechaInicio));
             out.println(sdf.format(fechaFin));
             for (Bacteria bacteria : bacterias) {
@@ -83,6 +84,7 @@ public class Experimento {
     public static Experimento abrirExperimento(String rutaArchivo) {
         try (BufferedReader in = new BufferedReader(new FileReader(rutaArchivo))) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String nombre = in.readLine(); // Read the name from the file
             Date fechaInicio = sdf.parse(in.readLine());
             Date fechaFin = sdf.parse(in.readLine());
             String linea;
@@ -96,7 +98,7 @@ public class Experimento {
             double dosisComidaFinal = 2.0;
             int duracion = 30; // default duration of the experiment in days
             double dosisComidaMicrogramos = 1500.0; // default food dose in micrograms
-            return new Experimento(fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal, duracion, dosisComidaMicrogramos);
+            return new Experimento(nombre, fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal, duracion, dosisComidaMicrogramos);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

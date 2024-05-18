@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class InterfazUsuario extends JFrame {
     private JButton abrirArchivoButton;
@@ -26,6 +27,7 @@ public class InterfazUsuario extends JFrame {
     private JButton verInfoPoblacionButton;
     private JButton guardarButton;
     private JButton guardarComoButton;
+    private JButton mostrarExperimentosButton; // Declare the button
     private Experimento experimentoActual;
     private String rutaArchivo; // Añade esta línea
     private JButton sortBacteriaButton;
@@ -51,6 +53,7 @@ public class InterfazUsuario extends JFrame {
         verInfoPoblacionButton = new JButton("Ver Info Población");
         guardarButton = new JButton("Guardar");
         guardarComoButton = new JButton("Guardar Como");
+        mostrarExperimentosButton = new JButton("Mostrar Experimentos"); // Initialize the button
         textArea = new JTextArea(20, 50);
         textArea.setEditable(false);
         scrollPane = new JScrollPane(textArea);
@@ -110,7 +113,7 @@ public class InterfazUsuario extends JFrame {
                 experimentoActual.guardarExperimento("ruta/al/archivo_experimento.txt");
             }
         });
-        mostrarExperimentosButton = new JButton("Mostrar Experimentos");
+
         mostrarExperimentosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -118,24 +121,8 @@ public class InterfazUsuario extends JFrame {
                 Experimento.abrirExperimento("ruta/al/archivo_experimento.txt").mostrarInfoExperimento();
             }
         });
-        add(mostrarExperimentosButton);
-        crearExperimentoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombre = "Experimento 1";
-                Date fechaInicio = new Date();
-                Date fechaFin = new Date();
-                List<Bacteria> bacterias = new ArrayList<>();
-                double dosisComidaInicial = 1.0;
-                double dosisComidaFinal = 2.0;
-                int duracion = 30;
-                double dosisComidaMicrogramos = 1500.0;
 
-                Experimento experimento = new Experimento(nombre, fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal, duracion, dosisComidaMicrogramos);
-                // Ahora puedes usar el objeto experimento para hacer lo que necesites, por ejemplo, guardarlo en un archivo
-                experimento.guardarExperimento("ruta/al/archivo_experimento.txt");
-            }
-        });
+        add(mostrarExperimentosButton);
 
         visualizarPoblacionesButton.addActionListener(new ActionListener() {
             @Override
@@ -153,29 +140,6 @@ public class InterfazUsuario extends JFrame {
 
                 // Borrar la población
                 PoblacionBacterias.eliminarPoblacion("ruta/al/archivo_poblacion.txt", nombrePoblacion);
-            }
-        });
-
-        verInfoPoblacionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Pedir al usuario el nombre de la población a visualizar
-                String nombrePoblacion = JOptionPane.showInputDialog("Introduce el nombre de la población a visualizar");
-
-                // Buscar la población en el archivo y mostrar su información
-                try (BufferedReader in = new BufferedReader(new FileReader("ruta/al/archivo_poblacion.txt"))) {
-                    String linea;
-                    while ((linea = in.readLine()) != null) {
-                        String[] partes = linea.split(",");
-                        if (partes[0].equals(nombrePoblacion)) {
-                            PoblacionBacterias poblacion = new PoblacionBacterias(partes[0], new SimpleDateFormat("yyyy-MM-dd").parse(partes[1]), new SimpleDateFormat("yyyy-MM-dd").parse(partes[2]), Integer.parseInt(partes[3]), Double.parseDouble(partes[4]), partes[5], Double.parseDouble(partes[6]));
-                            poblacion.mostrarInfoPoblacion();
-                            break;
-                        }
-                    }
-                } catch (IOException | ParseException ex) {
-                    ex.printStackTrace();
-                }
             }
         });
 

@@ -28,7 +28,7 @@ public class Main {
         bacterias.add(new Bacteria("Staphylococcus", 1500)); // Added for testing
         int duracion = 30; // duration of the experiment in days
         double dosisComidaMicrogramos = 1500.0; // food dose in micrograms
-        Experimento experimento = new Experimento(fechaInicioExp, fechaFinExp, bacterias, 1.0, 2.0, duracion, dosisComidaMicrogramos);
+        Experimento experimento = new Experimento("Experimento 1", fechaInicioExp, fechaFinExp, bacterias, 1.0, 2.0, duracion, dosisComidaMicrogramos);
         experimento.guardarExperimento("ruta/al/archivo_experimento.txt");
 
         // Print the list of bacteria before sorting
