@@ -1,6 +1,7 @@
 package Gestion_poblaciones_bacterias;
 
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -159,5 +160,20 @@ public class PoblacionBacterias {
                 return Integer.compare(p1.getNumBacteriasIniciales(), p2.getNumBacteriasIniciales());
             }
         });
+    }
+    public static PoblacionBacterias abrirPoblacion(String rutaArchivo, String nombrePoblacion) {
+        try (BufferedReader in = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            while ((linea = in.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes[0].equals(nombrePoblacion)) {
+                    PoblacionBacterias poblacion = new PoblacionBacterias(partes[0], new SimpleDateFormat("yyyy-MM-dd").parse(partes[1]), new SimpleDateFormat("yyyy-MM-dd").parse(partes[2]), Integer.parseInt(partes[3]), Double.parseDouble(partes[4]), partes[5], Double.parseDouble(partes[6]));
+                    return poblacion;
+                }
+            }
+        } catch (IOException | ParseException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

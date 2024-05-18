@@ -11,8 +11,9 @@ public class Experimento {
     private double dosisComidaFinal;
     private int duracion; // new instance variable
     private double dosisComidaMicrogramos; // new instance variable
-
-    public Experimento(Date fechaInicio, Date fechaFin, List<Bacteria> bacterias, double dosisComidaInicial, double dosisComidaFinal, int duracion, double dosisComidaMicrogramos) {
+    private String nombre; // nombre del experimento
+    public Experimento(String nombre, Date fechaInicio, Date fechaFin, List<Bacteria> bacterias, double dosisComidaInicial, double dosisComidaFinal, int duracion, double dosisComidaMicrogramos) {
+        this.nombre = nombre;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.bacterias = bacterias;
@@ -104,6 +105,7 @@ public class Experimento {
 
     public void mostrarInfoExperimento() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("Nombre: " + nombre);
         System.out.println("Fecha de inicio: " + sdf.format(fechaInicio));
         System.out.println("Fecha de fin: " + sdf.format(fechaFin));
         System.out.println("Dosis de comida inicial: " + dosisComidaInicial);

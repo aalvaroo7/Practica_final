@@ -1,5 +1,6 @@
 package GUI;
 
+import Gestion_experimentos.Bacteria;
 import Gestion_experimentos.Experimento;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
 
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class InterfazUsuario extends JFrame {
@@ -29,6 +31,7 @@ public class InterfazUsuario extends JFrame {
     private JButton sortBacteriaButton;
     private JTextArea textArea;
     private JScrollPane scrollPane;
+
     public InterfazUsuario() {
         setTitle("Interfaz de Usuario");
         setSize(400, 300);
@@ -39,7 +42,7 @@ public class InterfazUsuario extends JFrame {
         PrintStream printStream = new PrintStream(customOut);
         System.setOut(printStream);
         System.setErr(printStream);
-        
+
         abrirArchivoButton = new JButton("Abrir Archivo");
         crearExperimentoButton = new JButton("Crear Experimento");
         crearPoblacionButton = new JButton("Crear Población");
@@ -87,40 +90,50 @@ public class InterfazUsuario extends JFrame {
         crearExperimentoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para crear experimento
-                Date fechaInicioPob = new Date(); // fecha actual
-                Date fechaFinPob = new Date(); // fecha actual
-                String nombre = "Poblacion1"; // nombre de la población
-                int numBacteriasIniciales = 1000; // número inicial de bacterias
-                double temperatura = 37.0; // temperatura en grados Celsius
-                String condicionesLuminosidad = "Luz natural"; // condiciones de luminosidad
-                double dosisComida = 1.5; // dosis de comida
-
-                PoblacionBacterias poblacion = new PoblacionBacterias(nombre, fechaInicioPob, fechaFinPob, numBacteriasIniciales, temperatura, condicionesLuminosidad, dosisComida);
-                poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
-            }
-        });
-
-        crearPoblacionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Pedir al usuario los detalles de la población
-                String nombre = JOptionPane.showInputDialog("Introduce el nombre de la población");
-                String strTemperatura = JOptionPane.showInputDialog("Introduce la temperatura de la población");
+                // Pedir al usuario los detalles del experimento
+                String nombre = JOptionPane.showInputDialog("Introduce el nombre del experimento");
+                String strTemperatura = JOptionPane.showInputDialog("Introduce la temperatura del experimento");
                 double temperatura = Double.parseDouble(strTemperatura);
-                String condicionesLuminosidad = JOptionPane.showInputDialog("Introduce las condiciones de luminosidad de la población");
-                String strDosisComida = JOptionPane.showInputDialog("Introduce la dosis de comida de la población");
+                String condicionesLuminosidad = JOptionPane.showInputDialog("Introduce las condiciones de luminosidad del experimento");
+                String strDosisComida = JOptionPane.showInputDialog("Introduce la dosis de comida del experimento");
                 double dosisComida = Double.parseDouble(strDosisComida);
 
-                // Crear la población
-                Date fechaInicioPob = new Date(); // fecha actual
-                Date fechaFinPob = new Date(); // fecha actual
-                int numBacteriasIniciales = 1000; // número inicial de bacterias
+                // Crear el experimento
+                Date fechaInicioExp = new Date(); // fecha actual
+                Date fechaFinExp = new Date(); // fecha actual
+                List<Bacteria> bacterias = new ArrayList<>();
+                bacterias.add(new Bacteria("E. coli", 1000));
+                int duracion = 30; // duration of the experiment in days
+                experimentoActual = new Experimento(nombre, fechaInicioExp, fechaFinExp, bacterias, dosisComida, dosisComida, duracion, dosisComida);
 
-                PoblacionBacterias poblacion = new PoblacionBacterias(nombre, fechaInicioPob, fechaFinPob, numBacteriasIniciales, temperatura, condicionesLuminosidad, dosisComida);
+                // Guardar el experimento
+                experimentoActual.guardarExperimento("ruta/al/archivo_experimento.txt");
+            }
+        });
+        mostrarExperimentosButton = new JButton("Mostrar Experimentos");
+        mostrarExperimentosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Implementar lógica para mostrar experimentos
+                Experimento.abrirExperimento("ruta/al/archivo_experimento.txt").mostrarInfoExperimento();
+            }
+        });
+        add(mostrarExperimentosButton);
+        crearExperimentoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombre = "Experimento 1";
+                Date fechaInicio = new Date();
+                Date fechaFin = new Date();
+                List<Bacteria> bacterias = new ArrayList<>();
+                double dosisComidaInicial = 1.0;
+                double dosisComidaFinal = 2.0;
+                int duracion = 30;
+                double dosisComidaMicrogramos = 1500.0;
 
-                // Guardar la población
-                poblacion.guardarPoblacion("ruta/al/archivo_poblacion.txt");
+                Experimento experimento = new Experimento(nombre, fechaInicio, fechaFin, bacterias, dosisComidaInicial, dosisComidaFinal, duracion, dosisComidaMicrogramos);
+                // Ahora puedes usar el objeto experimento para hacer lo que necesites, por ejemplo, guardarlo en un archivo
+                experimento.guardarExperimento("ruta/al/archivo_experimento.txt");
             }
         });
 

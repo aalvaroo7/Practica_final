@@ -1,0 +1,3 @@
+Poblacion1,2024-05-18,2024-05-18,1000,37.0,Luz natural,1.5
+Poblacion1,2024-05-18,2024-05-18,1000,37.0,Luz natural,1.5
+Poblacion1,2024-05-18,2024-05-18,1000,37.0,Luz natural,1.5
