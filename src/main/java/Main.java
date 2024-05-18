@@ -181,7 +181,25 @@ public class Main {
 
     private class SimulateListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Código para realizar y visualizar la simulación correspondiente con una de las poblaciones de bacterias del experimento
+            // Show a dialog to input the population name to simulate
+            String populationName = JOptionPane.showInputDialog(frame, "Enter the name of the population to simulate:", "Simulate Population", JOptionPane.QUESTION_MESSAGE);
+            if (populationName != null) {
+                // Find the population with the entered name and simulate it
+                Bacteria populationToSimulate = null;
+                for (Bacteria bacteria : currentExperiment.getPoblacionesBacterias()) {
+                    if (bacteria.getNombre().equals(populationName)) {
+                        populationToSimulate = bacteria;
+                        break;
+                    }
+                }
+                if (populationToSimulate != null) {
+                    // Assuming that the Bacteria class has a simulate method
+                    populationToSimulate.simulateDailyBehavior();
+                    JOptionPane.showMessageDialog(frame, "Simulation completed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No population found with the entered name.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 
