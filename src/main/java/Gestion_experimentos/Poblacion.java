@@ -1,6 +1,7 @@
 package Gestion_experimentos;
 
 import java.util.Date;
+import java.util.Random;
 
 public class Poblacion {
     private String nombre;
@@ -17,12 +18,19 @@ public class Poblacion {
 
     public void inicializarPoblacion() {
         // Initialize the petri dish with bacteria
+        int ancho = platoCultivo.getAncho();
+        int alto = platoCultivo.getAlto();
+        int[][] foodGrid = new int[ancho][alto]; // Assuming foodGrid is a 2D array
+        Bacteria[][] bacteriaGrid = new Bacteria[ancho][alto]; // Assuming bacteriaGrid is a 2D array
+        Random rand = new Random();
+
         for (int i = 0; i < cantidadInicialBacterias; i++) {
-            Bacteria bacteria = new Bacteria(/* parameters */);
+            int x = rand.nextInt(ancho); // Generate random x coordinate
+            int y = rand.nextInt(alto); // Generate random y coordinate
+            Bacteria bacteria = new Bacteria(x, y, ancho, alto, foodGrid, bacteriaGrid);
             platoCultivo.addBacteria(bacteria);
         }
     }
-
     public int[][] obtenerEstadisticasDiarias() {
         return platoCultivo.obtenerEstadisticas();
     }
