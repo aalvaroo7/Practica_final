@@ -1,3 +1,6 @@
+
+https://github.com/aalvaroo7/Practica_final.git
+
 # Proyecto de Gestión de Experimentos Bacteriológicos
 
 Este proyecto es una aplicación de escritorio desarrollada en Java, diseñada para ayudar a los biólogos a gestionar cultivos de bacterias. La aplicación permite crear, eliminar y visualizar experimentos y poblaciones de bacterias, así como calcular la dosis de comida para cada día del experimento.
