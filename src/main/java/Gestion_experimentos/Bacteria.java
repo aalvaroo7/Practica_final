@@ -28,12 +28,15 @@ public class Bacteria {
     }
 
     public void simulateDailyBehavior() {
-        for (int i = 0; i < 10; i++) {
-            eat();
-            move();
+        if (!isNewborn) {
+            for (int i = 0; i < 10; i++) {
+                eat();
+                move();
+            }
+            reproduce();
+            die();
         }
-        reproduce();
-        die();
+        isNewborn = false; // After the first day, the bacteria is no longer a newborn
     }
 
     private void eat() {
