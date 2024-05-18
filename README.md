@@ -17,7 +17,7 @@ El proyecto se organiza en los siguientes paquetes y clases:
 
 - **Paquete `logica`**: Contiene la clase `LogicaExperimento` que implementa la lógica del experimento.
 
-- **Paquete `Utilidades`**: Contiene la clase `Utilidades` que proporciona métodos útiles para la gestión de datos y la manipulación de strings.
+- **Paquete `Simulacion`**: Contiene la clase `Simulacion` que proporciona métodos útiles para la gestión de datos y la manipulación de strings.
 
 - **Paquete `GUI`**: Contiene la clase `InterfazUsuario` que implementa la interfaz de usuario.
 

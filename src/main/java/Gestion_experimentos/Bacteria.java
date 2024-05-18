@@ -36,14 +36,59 @@ public class Bacteria {
 
     private void eat() {
         int foodAvailable = this.foodGrid[this.x][this.y];
-        this.foodConsumed += foodAvailable;
-        this.foodGrid[this.x][this.y] = 0; // The bacteria consumes all the food at its position
+        if (foodAvailable >= 100) {
+            this.foodConsumed += 20;
+            this.foodGrid[this.x][this.y] -= 20; // The bacteria consumes 20 micrograms of food if there are 100 or more
+            generateRandomNumberAndAct();
+        } else if (foodAvailable > 9) {
+            this.foodConsumed += 10;
+            this.foodGrid[this.x][this.y] -= 10; // The bacteria consumes 10 micrograms of food if there are between 10 and 99 micrograms
+            generateRandomNumberAndAct();
+        } else {
+            this.foodConsumed += foodAvailable;
+            this.foodGrid[this.x][this.y] = 0; // The bacteria consumes all the food at its position if there are less than 10 micrograms
+        }
     }
 
-    private void move() {
-        calculateMovement();
+    private void generateRandomNumberAndAct() {
+        // Generate a random number between 0 and 100
+        int randomNumber = new Random().nextInt(100);
+
+        if (randomNumber < 6) {
+            die();
+        } else if (randomNumber >= 20) {
+            move(randomNumber);
+        }
     }
 
+    private void move(int randomNumber) {
+        int newX = this.x;
+        int newY = this.y;
+
+        if (randomNumber < 30) {
+            newY++; // move up
+        } else if (randomNumber < 40) {
+            newX++; // move right
+        } else if (randomNumber < 50) {
+            newY--; // move down
+        } else if (randomNumber < 60) {
+            newX--; // move left
+        } else if (randomNumber < 70) {
+            newX++; newY++; // move up right
+        } else if (randomNumber < 80) {
+            newX++; newY--; // move down right
+        } else if (randomNumber < 90) {
+            newX--; newY--; // move down left
+        } else {
+            newX--; newY++; // move up left
+        }
+
+        // Check if the new position is within the boundaries of the petri dish
+        if (newX >= 0 && newX < this.maxX && newY >= 0 && newY < this.maxY) {
+            this.x = newX;
+            this.y = newY;
+        }
+    }
     private List<Bacteria> reproduce() {
         List<Bacteria> newBacterias = new ArrayList<>();
         // Assuming a bacteria can reproduce if it has consumed more than 10 units of food
