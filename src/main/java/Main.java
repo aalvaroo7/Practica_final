@@ -1,8 +1,10 @@
+import GUI.CustomOutputStream;
 import GUI.InterfazUsuario;
 import Gestion_experimentos.Experimento;
 import Gestion_experimentos.Bacteria;
 import Gestion_poblaciones_bacterias.PoblacionBacterias;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +12,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-
+        InterfazUsuario interfazUsuario = new InterfazUsuario();
+        PrintStream printStream = new PrintStream(new CustomOutputStream(interfazUsuario.getTextArea()));
+        System.setOut(printStream);
+        System.setErr(printStream);
+        // ...
+        interfazUsuario.setVisible(true);
         // Código existente para crear y guardar un experimento
         Date fechaInicioExp = new Date(); // fecha actual
         Date fechaFinExp = new Date(); // fecha actual

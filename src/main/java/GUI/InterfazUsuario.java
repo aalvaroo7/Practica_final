@@ -25,6 +25,8 @@ public class InterfazUsuario extends JFrame {
     private Experimento experimentoActual;
     private String rutaArchivo; // Añade esta línea
     private JButton sortBacteriaButton;
+    private JTextArea textArea;
+    private JScrollPane scrollPane;
 
     public InterfazUsuario() {
         setTitle("Interfaz de Usuario");
@@ -40,7 +42,10 @@ public class InterfazUsuario extends JFrame {
         verInfoPoblacionButton = new JButton("Ver Info Población");
         guardarButton = new JButton("Guardar");
         guardarComoButton = new JButton("Guardar Como");
-
+        textArea = new JTextArea(20, 50);
+        textArea.setEditable(false);
+        scrollPane = new JScrollPane(textArea);
+        add(scrollPane);
         sortBacteriaButton = new JButton("Sort Bacteria");
 
         sortBacteriaButton.addActionListener(new ActionListener() {
