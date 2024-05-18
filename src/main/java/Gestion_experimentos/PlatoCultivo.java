@@ -39,26 +39,38 @@ public class PlatoCultivo {
     }
 
     public void simularDiaCompleto(int cantidadComida) {
-        repartirComidaDiaria(cantidadComida);
+        while (hayBacteriasVivas()) {
+            repartirComidaDiaria(cantidadComida);
+            for (int i = 0; i < ancho; i++) {
+                for (int j = 0; j < alto; j++) {
+                    Celda celda = matrizCeldas[i][j];
+                    celda.repartirComida();
+                    List<Bacteria> bacterias = celda.getBacterias();
+                    for (Bacteria bacteria : bacterias) {
+                        bacteria.simulateDailyBehavior();
+                        List<Bacteria> newBacterias = bacteria.reproduce();
+                        for (Bacteria newBacteria : newBacterias) {
+                            celda.addBacteria(newBacteria);
+                        }
+                    }
+                    bacteriaStats[currentDay][i][j] = celda.getBacterias().size();
+                    foodStats[currentDay][i][j] = celda.getFoodAmount();
+                }
+            }
+            currentDay++;
+        }
+    }
+    public boolean hayBacteriasVivas() {
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
                 Celda celda = matrizCeldas[i][j];
-                celda.repartirComida();
-                List<Bacteria> bacterias = celda.getBacterias();
-                for (Bacteria bacteria : bacterias) {
-                    bacteria.simulateDailyBehavior();
-                    List<Bacteria> newBacterias = bacteria.reproduce();
-                    for (Bacteria newBacteria : newBacterias) {
-                        celda.addBacteria(newBacteria);
-                    }
+                if (!celda.getBacterias().isEmpty()) {
+                    return true;
                 }
-                bacteriaStats[currentDay][i][j] = celda.getBacterias().size();
-                foodStats[currentDay][i][j] = celda.getFoodAmount();
             }
         }
-        currentDay++;
+        return false;
     }
-
     public int[][] obtenerEstadisticas() {
         int[][] estadisticas = new int[ancho][alto];
         for (int i = 0; i < ancho; i++) {
